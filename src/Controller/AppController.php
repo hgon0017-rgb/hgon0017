@@ -41,15 +41,12 @@ class AppController extends Controller
     public function initialize(): void
     {
         parent::initialize();
-
-
         $this->loadComponent('Authorization.Authorization');
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/5/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
-
         // Load component from Authentication plugin
         $this->loadComponent('Authentication.Authentication');
         $this->loadComponent('Flash');
