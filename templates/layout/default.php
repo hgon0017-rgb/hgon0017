@@ -181,6 +181,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <div class="nav-right">
         <?php if ($this->Identity->isLoggedIn()): ?>
+        <a href="<?=$this->Url->build(['controller' => 'ContactUs', 'action' => 'index'])?>">Admin</a>
             <?= $this->Form->postLink(
                 'Logout',
                 ['controller'=>'Auth','action'=>'logout','prefix'=>false],
