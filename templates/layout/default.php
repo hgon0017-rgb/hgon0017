@@ -19,11 +19,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= h($this->fetch('title')) ?></title>
+
     <?= $this->fetch('meta') . $this->fetch('css') . $this->fetch('script') ?>
     <style>
+
         :root {
             --bg: #f6f7fb;
             --card: #ffffff;
