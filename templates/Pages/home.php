@@ -61,6 +61,43 @@ use Cake\Http\Exception\NotFoundException;
         .howitworks .card-lg:last-child{ max-width: 100%; }
     }
 
+    /* Minimal, contained hero overlay */
+    .hero{ position: relative; overflow: hidden; }
+    .hero::after{
+        content:""; position:absolute; inset:0;
+        /* very light gradient for readability (subtle, not heavy) */
+        background: linear-gradient(to bottom, rgba(0,0,0,.06), rgba(0,0,0,.22));
+        pointer-events:none;
+    }
+
+    .hero-content{
+        position:absolute; inset:0;
+        display:flex; align-items:center; justify-content:center;
+        padding: clamp(12px, 3vw, 32px);
+    }
+
+    .hero-inner{
+        /* keep text well inside the banner width */
+        width: min(100%, 880px);
+        text-align: center;
+        margin: 0 auto;
+
+    }
+
+    .hero-title{
+        color:#fff; font-weight:800; line-height:1.08;
+        letter-spacing:.2px; margin: 0;
+        .hero-title { font-size: clamp(36px, 6.2vw, 60px); }
+        text-shadow: 0 3px 12px rgba(0,0,0,.28);
+    }
+
+    .hero-sub{
+        color:#f4f4f4; margin-top: .35rem;
+        .hero-sub   { font-size: clamp(15px, 2.2vw, 20px); }
+        opacity:.95;
+
+
+    }
 </style>
 
 <!-- HERO -->
@@ -71,7 +108,11 @@ use Cake\Http\Exception\NotFoundException;
     ]) ?>
 
     <div class="hero-content">
-        <h1 class="hero-title">Iconic Prints</h1>
+        <div class="hero-inner">
+            <h1 class="hero-title">Iconic Prints</h1>
+            <p class="hero-sub">Flags, banners & signage — professional quality, ordered online.</p>
+            <!-- keeping it minimal: no buttons/badges so it doesn't feel busy -->
+        </div>
     </div>
 </div>
 
