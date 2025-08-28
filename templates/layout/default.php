@@ -35,7 +35,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             --muted: #767676;
             --text: #222;
             --ring: #e9e9ee;
-            --accent: #f37021;
+            --accent: #000000;
         }
 
         * {
@@ -202,11 +202,34 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <a href="#">Cart 🛒</a>
     </div>
 </header>
+<!--Footer-->
 
 <main class="main">
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </main>
+<footer>
+    <footer class="bg-white py-4 mt-auto">
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                <div class="col-auto">
+                    <div class="small m-0"> </div>
+                    <div class="small m-0">Copyright &copy; Iconic Prints </div>
+                </div>
+                <div class="col-auto">
+                    <!--                --><?php //if ($this->Identity->isLoggedIn()): ?>
+                    <!--                    --><?php //= $this->Html->link('New Admin', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'small']) ?>
+                    <!--                    <span class="mx-1">&middot;</span>-->
+                    <!--                --><?php //endif ?>
+                    <a class="small" href="https://book.cakephp.org/5/en/index.html">CakePHP Cookbook - Your best friend EVER!(In FIT3047)</a>
+                    <span class="mx-1">&middot;</span>
+                    <a class="small" href="https://getbootstrap.com/docs/5.0">Bootstrap Documentation - Your second best friend!</a>
+                    <!--                <span class="mx-1">&middot;</span>-->
+                    <!--                <a class="small" href="#!">Contact</a>-->
+                </div>
+            </div>
+        </div>
 
+    </footer>
 </body>
 </html>
