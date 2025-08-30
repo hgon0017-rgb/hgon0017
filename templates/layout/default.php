@@ -1,16 +1,6 @@
 <?php
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
  * @var \App\View\AppView $this
  */
 $cakeDescription = 'CakePHP: the rapid development php framework';
@@ -74,7 +64,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         .nav-left a:hover, .nav-right a:hover {
             text-decoration: underline;
         }
-
 
         .btn {
             display: inline-flex;
@@ -186,7 +175,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <div class="nav-right">
         <?php if ($this->Identity->isLoggedIn()): ?>
-        <a href="<?=$this->Url->build(['controller' => 'ContactUs', 'action' => 'index'])?>">Admin</a>
+            <!-- 修改这里：Admin 链接跳转到 Users/index -->
+            <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Admin</a>
             <?= $this->Form->postLink(
                 'Logout',
                 ['controller'=>'Auth','action'=>'logout','prefix'=>false],
@@ -217,19 +207,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <div class="small m-0">Copyright &copy; Iconic Prints </div>
                 </div>
                 <div class="col-auto">
-                    <!--                --><?php //if ($this->Identity->isLoggedIn()): ?>
-                    <!--                    --><?php //= $this->Html->link('New Admin', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'small']) ?>
-                    <!--                    <span class="mx-1">&middot;</span>-->
-                    <!--                --><?php //endif ?>
                     <a class="small" href="https://book.cakephp.org/5/en/index.html">CakePHP Cookbook - Your best friend EVER!(In FIT3047)</a>
                     <span class="mx-1">&middot;</span>
                     <a class="small" href="https://getbootstrap.com/docs/5.0">Bootstrap Documentation - Your second best friend!</a>
-                    <!--                <span class="mx-1">&middot;</span>-->
-                    <!--                <a class="small" href="#!">Contact</a>-->
                 </div>
             </div>
         </div>
-
     </footer>
+</footer>
 </body>
 </html>
