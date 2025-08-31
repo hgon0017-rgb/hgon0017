@@ -227,6 +227,8 @@ use Cake\Http\Exception\NotFoundException;
         transform: translateY(-2px); /* slight lift  */
     }
 
+
+
 </style>
 
 <!-- HERO -->
@@ -237,7 +239,7 @@ use Cake\Http\Exception\NotFoundException;
     ]) ?>
     <div class="hero-content">
         <div class="hero-inner">
-            <!-- 点击标题跳到下方 Products -->
+            <!--Products -->
             <h1 class="hero-title">
                 <a href="#products" title="Jump to products">Iconic Prints</a>
             </h1>
@@ -246,7 +248,6 @@ use Cake\Http\Exception\NotFoundException;
     </div>
 </div>
 
-<!-- 简短段落：三大类产品简介（Hero 下方、Products 之前） -->
 <section class="container py-4" aria-label="Product lines overview" style="max-width:980px;">
     <p class="lead" style="margin:0;">
         We offer three main product lines:
@@ -264,7 +265,6 @@ use Cake\Http\Exception\NotFoundException;
 
 <!-- Products -->
 <div class="toolbar" style="padding-inline:2rem; margin-top:12px; margin-bottom:16px;">
-    <!-- 锚点：供 Hero 标题和导航栏跳转 -->
     <h2 id="products" style="margin: 0 0 6px 0;">Products</h2>
     <span style="background:#eee; border-radius:999px; padding:6px 10px; font-size:13px; display:inline-block;">
         Flags ▾
@@ -319,7 +319,6 @@ use Cake\Http\Exception\NotFoundException;
     </div>
 </div>
 
-<!-- JS：修改导航栏 Products 链接为 #products -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const navLinks = document.querySelectorAll('.nav-left a');

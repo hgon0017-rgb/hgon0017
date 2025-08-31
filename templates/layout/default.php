@@ -210,9 +210,84 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             transform: scale(1.15);
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
+        .site-footer {
+            background: #000;   /* Avex style black background */
+            color: #fff;
+            padding: 40px 24px;
+            font-size: 14px;
+        }
 
+        .site-footer-inner {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr; /* left | center | right */
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
 
+        /* Left column */
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .footer-nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* Social icons (center) */
+        .social {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Right contact block */
+        .contact-block {
+            text-align: right;
+            font-style: normal;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #aaa;
+        }
+
+        .contact-block .contact-city {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .contact-block a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .contact-block a:hover {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -228,7 +303,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <div class="nav-right">
         <?php if ($this->Identity->isLoggedIn()): ?>
-            <!-- 修改这里：Admin 链接跳转到 Users/index -->
+            <!--AdminUsers/index -->
             <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Admin</a>
             <?= $this->Form->postLink(
                 'Logout',
@@ -251,14 +326,28 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </main>
-<footer class="site-footer">
+
+<footer class="site-footer" role="contentinfo">
     <div class="site-footer-inner">
-        <!-- left: copyright -->
-        <div class="copyright">
-            Copyright &copy; Iconic Prints
+        <!-- Left: copyright -->
+        <div class="footer-left">
+            <nav class="footer-nav">
+                <li class="h6">
+                    <a href="#">Contact</a>
+                </li>
+                <li class="h6">
+                    <a href="#">Products</a>
+                </li>
+                <li class="h6">
+                    <a href="#">About us</a>
+                </li>
+            </nav>
+            <div class="copyright">
+                © Iconic Prints
+            </div>
         </div>
 
-        <!-- center: social icons -->
+        <!-- Center: social icons (uses your .social) -->
         <nav class="social" aria-label="Social media">
             <a class="instagram" href="https://www.instagram.com/your_handle" target="_blank" rel="noopener" aria-label="Instagram">
                 <i class="fa-brands fa-instagram"></i>
@@ -274,11 +363,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </a>
         </nav>
 
-
-        <!-- right: empty spacer -->
-        <div class="spacer"></div>
+        <!-- Right: contact block (replaces the old 'spacer') -->
+        <address class="contact-block">
+            <div class="contact-city">Melbourne</div>
+            <div>Wellington Road, Clayton<br>Victoria, 3800</div>
+            <div><a href="tel:+61111222333">+61 111 222 333</a></div>
+            <div><a href="mailto:newbusiness@iconicprints.com">newbusiness@iconicprints.com</a></div>
+        </address>
     </div>
 </footer>
+
+
 
 </body>
 </html>
