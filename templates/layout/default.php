@@ -333,7 +333,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="footer-left">
             <nav class="footer-nav">
                 <li class="h6">
-                    <a href="#">Contact</a>
+                    <a href="<?= $this->Url->build(['controller' => 'ContactUs', 'action' => 'add']) ?>">Contact</a>
                 </li>
                 <li class="h6">
                     <a href="#">Products</a>
