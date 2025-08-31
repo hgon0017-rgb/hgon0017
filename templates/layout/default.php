@@ -347,7 +347,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </div>
         </div>
 
-        <!-- Center: social icons (uses your .social) -->
+        <!-- Center: social icons -->
         <nav class="social" aria-label="Social media">
             <a class="instagram" href="https://www.instagram.com/your_handle" target="_blank" rel="noopener" aria-label="Instagram">
                 <i class="fa-brands fa-instagram"></i>
@@ -363,12 +363,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </a>
         </nav>
 
-        <!-- Right: contact block (replaces the old 'spacer') -->
+        <!-- Right: contact block-->
         <address class="contact-block">
             <div class="contact-city">Melbourne</div>
             <div>Wellington Road, Clayton<br>Victoria, 3800</div>
-            <div><a href="tel:+61111222333">+61 111 222 333</a></div>
-            <div><a href="mailto:newbusiness@iconicprints.com">newbusiness@iconicprints.com</a></div>
+            <div><a href="">+61 111 222 333</a></div>
+            <div><a href="">iconicprintsoffical@gmail.com</a></div>
         </address>
     </div>
 </footer>
