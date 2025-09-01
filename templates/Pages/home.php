@@ -243,7 +243,7 @@ use Cake\Http\Exception\NotFoundException;
             <h1 class="hero-title">
                 <a href="#products" title="Jump to products">Iconic Prints</a>
             </h1>
-            <p class="hero-sub">Flags, banners & signage — professional quality, ordered online.</p>
+            <p class="hero-sub">Flags, banners & signage</p>
         </div>
     </div>
 </div>
