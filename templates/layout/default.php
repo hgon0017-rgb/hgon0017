@@ -214,7 +214,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <div class="row align-items-center justify-content-between flex-column flex-sm-row">
                 <div class="col-auto">
                     <div class="small m-0"> </div>
-                    <div class="small m-0">Copyright &copy; Iconic Prints </div>
+                    <div class="small m-0">Copyright &copy; Iconic Prints </div
                 </div>
                 <div class="col-auto">
                     <!--                --><?php //if ($this->Identity->isLoggedIn()): ?>
