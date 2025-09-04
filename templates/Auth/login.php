@@ -134,6 +134,10 @@ $this->assign('title', 'Login');
             ['controller' => 'Auth', 'action' => 'register'],
             ['class' => 'btn-outline']) ?>
 
+        <div class="between"></div>
+
+        <?= $this->Html->link('Back to home', ['controller' => 'Pages', 'action' => 'home'])?>
+
         <?= $this->Form->end() ?>
     </div>
 </div>
