@@ -294,11 +294,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
 <header class="navbar">
     <div class="nav-left">
+        <h1>
+            IconicPrints
+        </h1>
         <?= $this->Html->link('Dashboard', '/', []) ?>
-        <a href="#">Products</a>
-        <a href="#">Notification</a>
-        <a href="#">About Us</a>
-        <a href="#">Help</a>
+        <?= $this->Html->link('Products', '/', []) ?>
+        <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'help']) ?>">Help</a>
+
     </div>
 
     <div class="nav-right">
