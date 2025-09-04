@@ -298,7 +298,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             IconicPrints
         </h1>
         <?= $this->Html->link('Dashboard', '/', []) ?>
-        <?= $this->Html->link('Products', '/', []) ?>
+        <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'add']) ?>">Products</a>
         <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'help']) ?>">Help</a>
 
     </div>
