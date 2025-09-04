@@ -12,6 +12,9 @@ use Cake\Http\Exception\NotFoundException;
 ?>
 
 <style>
+    /* Smooth anchor scroll */
+    html { scroll-behavior: smooth; }
+
     /* Banner */
     .main { padding: 0; }
     .hero-img { display:block; width:100%; height:auto; }
@@ -31,27 +34,76 @@ use Cake\Http\Exception\NotFoundException;
         body .grid{ grid-template-columns: 1fr; }
     }
 
-    /* How it Works */
+    /* ===== How it Works Section  ===== */
     .howitworks {
-        display: flex;
-        gap: 1.5rem;
-        padding-inline: 2rem;
+        display: flex; /*  horizontal layout */
+        gap: 1.5rem; /*  spacing */
+        padding: 2rem; /*  padding */
     }
-    .howitworks .card-lg { flex: 1; }
-    .howitworks .card-lg:last-child{
+
+    /* Card  */
+    .howitworks .card-lg {
+        background: #fff; /*  white background */
+        border-radius: 12px; /*  rounded corners */
+        padding: 20px; /*  padding */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* shadow */
+        flex: 1; /*  equal width */
+    }
+
+    /* Right-side Card  */
+    .howitworks .card-lg:last-child {
         flex: 0 0 auto;
-        max-width: 350px;
+        max-width: 350px; /*  max width */
     }
+
+    /* Responsive  */
     @media (max-width: 992px){
-        .howitworks{ flex-direction: column; }
-        .howitworks .card-lg:last-child{ max-width: 100%; }
+        .howitworks { flex-direction: column; } /*  vertical stack */
+        .howitworks .card-lg:last-child { max-width: 100%; }
     }
+
+    /* Numbered List with Circles  */
+    .howitworks ul {
+        list-style: none; /* remove default dots  */
+        counter-reset: step; /* reset counter  */
+        padding-left: 0;
+    }
+
+    .howitworks ul li {
+        margin-bottom: 16px; /* spacing  */
+        font-size: 16px; /* font size  */
+        line-height: 1.6; /* line height  */
+        position: relative;
+        padding-left: 42px; /* leave space for number  */
+    }
+
+    .howitworks ul li::before {
+        counter-increment: step; /* increase counter+1 */
+        content: counter(step); /* show number  */
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 28px; /* circle size  */
+        height: 28px;
+        border-radius: 50%; /* make it round  */
+        background: #007bff; /* blue circle  */
+        color: #fff; /* white text  */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+
 
     /* Hero Overlay */
     .hero{ position: relative; overflow: hidden; }
     .hero::after{
-        content:""; position:absolute; inset:0;
-        background: linear-gradient(to bottom, rgba(0,0,0,.06), rgba(0,0,0,.22));
+        content:"";
+        position:absolute;
+        inset:0;
+        background: linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,.25));
         pointer-events:none;
     }
     .hero-content{
@@ -64,59 +116,165 @@ use Cake\Http\Exception\NotFoundException;
         text-align: center;
         margin: 0 auto;
     }
-    .hero-title{
-        color:#fff; font-weight:800; line-height:1.08;
-        font-size: clamp(36px, 6.2vw, 60px);
-        text-shadow: 0 3px 12px rgba(0,0,0,.28);
-    }
-    .hero-sub{
-        color:#f4f4f4; margin-top: .35rem;
-        font-size: clamp(15px, 2.2vw, 20px);
-        opacity:.95;
+    .hero-title {
+        color: #fff;
+        font-weight: 800;
+        line-height: 1.08;
+        font-size: clamp(40px, 6vw, 72px);
+        /* multiple shadows to make text stand out */
+        text-shadow:
+            2px 2px 4px rgba(0,0,0,0.6),   /* close shadow */
+            4px 4px 10px rgba(0,0,0,0.5),  /* mid shadow */
+            0 0 12px rgba(0,0,0,0.4);      /* soft outer glow */
+        letter-spacing: 1px;
     }
 
-    /* Product Card */
-    .card img {
-        width:100%; height:180px;
-        object-fit:cover;
-        border-radius:8px;
-        margin-bottom:8px;
+    /* Hero Title  */
+    .hero-title a {
+        color: #fff; /*  default white text */
+        text-decoration: none; /*  remove underline */
+        transition: all 0.3s ease; /*  smooth animation */
     }
-    .card h3 { margin: 6px 0; }
+
+    .hero-title a:hover {
+        color: #ffeb3b; /*  bright yellow on hover */
+        text-shadow:
+            0 0 6px rgba(255, 235, 59, 0.7),  /*  soft glow */
+            0 0 12px rgba(255, 235, 59, 0.6);
+        transform: scale(1.05); /*  slightly bigger */
+    }
+
+    .hero-title a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+    .hero-sub{
+        color:#f9f9f9;
+        margin-top: 12px;
+        font-size: clamp(18px, 2.5vw, 22px);
+        text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    /* ===== Products Section ===== */
+    .grid {
+        display: grid; /*  grid layout */
+        grid-template-columns: repeat(3, minmax(280px, 1fr)); /*  three columns */
+        gap: 1.5rem; /*  spacing */
+        padding: 2rem; /*  padding */
+    }
+
+    /* Responsive  */
+    @media (max-width: 1100px){
+        .grid{ grid-template-columns: repeat(2, minmax(280px,1fr)); } /*  two columns on tablet */
+    }
+    @media (max-width: 700px){
+        .grid{ grid-template-columns: 1fr; } /*  single column on mobile */
+    }
+
+    /* Product Card  */
+    .card {
+        background: #fff; /*  white background */
+        border-radius: 12px; /*  border radius */
+        padding: 16px; /*  padding */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08); /*  shadow */
+        transition: transform 0.2s ease, box-shadow 0.2s ease; /* 动 animation */
+        text-align: center; /*  center text */
+    }
+
+    /* Hover Effect  */
+    .card:hover {
+        transform: translateY(-6px); /*  effect of lifting */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.16); /*  stronger shadow */
+    }
+
+    /* Product Image  */
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover; /*  fill & crop */
+        border-radius: 8px; /*  rounded corners */
+        margin-bottom: 12px; /*  spacing below */
+    }
+
+    /* Product Title  */
+    .card h3 {
+        margin: 8px 0;
+        font-size: 20px; /*  font size */
+        font-weight: 600; /*  bold */
+        color: #222;
+    }
+
+    /* Product Description  */
+    .card p {
+        font-size: 15px; /*  font size */
+        color: #555; /*  dark gray */
+        line-height: 1.4; /*  line height */
+    }
+    /* Contact Us Button  */
+    .btn {
+        display: inline-block; /* inline-block  */
+        background: #007bff;   /* blue background  */
+        color: #fff;           /* white text  */
+        padding: 12px 24px;    /* padding  */
+        border-radius: 8px;    /* rounded corners  */
+        text-decoration: none; /* remove underline 去 */
+        font-weight: 600;      /* bold  */
+        font-size: 16px;       /* font size  */
+        transition: background 0.2s, transform 0.2s; /* hover animation  */
+    }
+
+    /* Hover Effect  */
+    .btn:hover {
+        background: #0056b3; /* darker blue  */
+        transform: translateY(-2px); /* slight lift  */
+    }
+
+
+
 </style>
 
 <!-- HERO -->
-<div class="hero">
+<div class="hero" role="banner" aria-label="Iconic Prints hero">
     <?= $this->Html->image('printing-banner-3.jpg', [
         'class' => 'hero-img',
-        'alt'   => 'Printing Banner'
+        'alt'   => 'Large-format printer producing colourful print'
     ]) ?>
     <div class="hero-content">
         <div class="hero-inner">
-            <h1 class="hero-title">Iconic Prints</h1>
-            <p class="hero-sub">Flags, banners & signage — professional quality, ordered online.</p>
+            <!--Products -->
+            <h1 class="hero-title">
+                <a href="#products" title="Jump to products">Iconic Prints</a>
+            </h1>
+            <p class="hero-sub">Flags, banners & signage</p>
         </div>
     </div>
 </div>
 
-<main class="main">
+<section class="container py-4" aria-label="Product lines overview" style="max-width:980px;">
+    <p class="lead" style="margin:0;">
+        We offer three main product lines:
+        <strong>Flags</strong> for events and storefronts,
+        durable <strong>Signage</strong> for indoor and outdoor use,
+        and flexible <strong>Custom Orders</strong> for unique sizes, materials and finishes.
+        Quick quotes and reliable turnaround.
+    </p>
+</section>
+
+<main class="main" role="main">
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </main>
 
 <!-- Products -->
-<div class="toolbar"
-     style="padding-inline:2rem; margin-top:20px; margin-bottom:16px;">
-    <h2 style="margin: 0 0 6px 0;">Products</h2>
+<div class="toolbar" style="padding-inline:2rem; margin-top:12px; margin-bottom:16px;">
+    <h2 id="products" style="margin: 0 0 6px 0;">Products</h2>
     <span style="background:#eee; border-radius:999px; padding:6px 10px; font-size:13px; display:inline-block;">
         Flags ▾
     </span>
 </div>
 
-<section class="grid">
+<section class="grid" aria-label="Flag products">
     <article class="card">
         <?= $this->Html->image('flags-national.jpg', [
-            'alt' => 'National Flags'
+            'alt' => 'Assorted national flags arranged together'
         ]) ?>
         <h3>National Flags</h3>
         <p>Proudly display your heritage with our high-quality national flags.</p>
@@ -124,7 +282,7 @@ use Cake\Http\Exception\NotFoundException;
 
     <article class="card">
         <?= $this->Html->image('flags-corporate.jpg', [
-            'alt' => 'Corporate Flags'
+            'alt' => 'Corporate flags flying outside a modern building'
         ]) ?>
         <h3>Corporate Flags</h3>
         <p>Elevate your brand presence with custom corporate flags.</p>
@@ -132,7 +290,7 @@ use Cake\Http\Exception\NotFoundException;
 
     <article class="card">
         <?= $this->Html->image('flags-custom.jpg', [
-            'alt' => 'Custom Flag'
+            'alt' => 'Blank feather and teardrop flag shapes for custom printing'
         ]) ?>
         <h3>Custom Flag</h3>
         <p>Bring any design to life with fully customized flag printing.</p>
@@ -147,16 +305,27 @@ use Cake\Http\Exception\NotFoundException;
         <ul class="bullets">
             <li>Choose Your <strong>Product</strong></li>
             <li>Send Your Design or Request <strong>Customisation</strong></li>
-            <li>We Print & Deliver</li>
+            <li>We Print &amp; Deliver</li>
             <li>You Display with <strong>Pride!</strong></li>
         </ul>
     </div>
     <div class="card-lg">
         <span class="tag">Need Help</span>
-        <h3>Contact & Enquiry Section</h3>
+        <h3>Contact &amp; Enquiry Section</h3>
         <p class="muted">Whether it’s specs, pricing, or lead time, we’re here to help.</p>
         <a class="btn" href="<?= $this->Url->build(['controller' => 'ContactUs', 'action' => 'add']) ?>">
             Contact Us ➜
         </a>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const navLinks = document.querySelectorAll('.nav-left a');
+        navLinks.forEach(link => {
+            if (link.textContent.trim() === 'Products') {
+                link.setAttribute('href', '#products');
+            }
+        });
+    });
+</script>

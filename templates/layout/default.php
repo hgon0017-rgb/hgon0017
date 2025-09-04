@@ -1,16 +1,6 @@
 <?php
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
  * @var \App\View\AppView $this
  */
 $cakeDescription = 'CakePHP: the rapid development php framework';
@@ -21,6 +11,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <head>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -74,7 +65,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         .nav-left a:hover, .nav-right a:hover {
             text-decoration: underline;
         }
-
 
         .btn {
             display: inline-flex;
@@ -171,6 +161,133 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             font-size: 12px;
             margin-bottom: 10px;
         }
+        /* ===== Footer: left copyright / center social / right spacer ===== */
+        .site-footer {
+            background: #fff;
+            color: #555;
+            border-top: 1px solid #e7e7e7;
+            padding: 14px 0;
+            font-size: 14px;
+        }
+        .site-footer-inner {
+            display: grid;                      /* 3 columns: 1fr | auto | 1fr  */
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .site-footer .copyright { justify-self: start; }
+        .site-footer .spacer    { justify-self: end; }   /* empty, keeps center truly centered */
+
+        /* override global <a> styles inside footer */
+        .site-footer a { text-decoration: none; }
+
+        /* social icons (center) */
+        .site-footer .social {
+            display: flex; gap: 12px; justify-content: center;
+        }
+        .site-footer .social a {
+            width: 36px; height: 36px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            background: #f3f4f6; color: #555; font-size: 18px;
+            transition: transform .2s, background .2s, color .2s;
+        }
+        .site-footer .social a:hover {
+            transform: translateY(-2px) scale(1.15);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+
+
+        /* --- Specific colors per platform --- */
+        .site-footer .social a.instagram { background: #E4405F; color: #fff; }
+        .site-footer .social a.twitter   { background: #000000; color: #fff; }
+        .site-footer .social a.facebook  { background: #1877F2; color: #fff; }
+        .site-footer .social a.tiktok    { background: #ff0050; color: #fff; }
+
+        .site-footer .social a:hover {
+            transform: scale(1.15);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .site-footer {
+            background: #000;   /* Avex style black background */
+            color: #fff;
+            padding: 40px 24px;
+            font-size: 14px;
+        }
+
+        .site-footer-inner {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr; /* left | center | right */
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        /* Left column */
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        .footer-nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .footer-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        /* Social icons (center) */
+        .social {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Right contact block */
+        .contact-block {
+            text-align: right;
+            font-style: normal;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #aaa;
+        }
+
+        .contact-block .contact-city {
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            color: #fff;
+            margin-bottom: 6px;
+        }
+
+        .contact-block a {
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .contact-block a:hover {
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -186,7 +303,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
     <div class="nav-right">
         <?php if ($this->Identity->isLoggedIn()): ?>
-        <a href="<?=$this->Url->build(['controller' => 'ContactUs', 'action' => 'index'])?>">Admin</a>
+            <!--AdminUsers/index -->
+            <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Admin</a>
             <?= $this->Form->postLink(
                 'Logout',
                 ['controller'=>'Auth','action'=>'logout','prefix'=>false],
@@ -208,28 +326,54 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </main>
-<footer>
-    <footer class="bg-white py-4 mt-auto">
-        <div class="container px-5">
-            <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                <div class="col-auto">
-                    <div class="small m-0"> </div>
-                    <div class="small m-0">Copyright &copy; Iconic Prints </div
-                </div>
-                <div class="col-auto">
-                    <!--                --><?php //if ($this->Identity->isLoggedIn()): ?>
-                    <!--                    --><?php //= $this->Html->link('New Admin', ['controller' => 'Auth', 'action' => 'register'], ['class' => 'small']) ?>
-                    <!--                    <span class="mx-1">&middot;</span>-->
-                    <!--                --><?php //endif ?>
-                    <a class="small" href="https://book.cakephp.org/5/en/index.html">CakePHP Cookbook - Your best friend EVER!(In FIT3047)</a>
-                    <span class="mx-1">&middot;</span>
-                    <a class="small" href="https://getbootstrap.com/docs/5.0">Bootstrap Documentation - Your second best friend!</a>
-                    <!--                <span class="mx-1">&middot;</span>-->
-                    <!--                <a class="small" href="#!">Contact</a>-->
-                </div>
+
+<footer class="site-footer" role="contentinfo">
+    <div class="site-footer-inner">
+        <!-- Left: copyright -->
+        <div class="footer-left">
+            <nav class="footer-nav">
+                <li class="h6">
+                    <a href="<?= $this->Url->build(['controller' => 'ContactUs', 'action' => 'add']) ?>">Contact</a>
+                </li>
+                <li class="h6">
+                    <a href="#">Products</a>
+                </li>
+                <li class="h6">
+                    <a href="#">About us</a>
+                </li>
+            </nav>
+            <div class="copyright">
+                © Iconic Prints
             </div>
         </div>
 
-    </footer>
+        <!-- Center: social icons -->
+        <nav class="social" aria-label="Social media">
+            <a class="instagram" href="https://www.instagram.com/your_handle" target="_blank" rel="noopener" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a class="twitter" href="https://x.com/your_handle" target="_blank" rel="noopener" aria-label="X">
+                <i class="fa-brands fa-x-twitter"></i>
+            </a>
+            <a class="facebook" href="https://www.facebook.com/your_page" target="_blank" rel="noopener" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            <a class="tiktok" href="https://www.tiktok.com/@your_handle" target="_blank" rel="noopener" aria-label="TikTok">
+                <i class="fa-brands fa-tiktok"></i>
+            </a>
+        </nav>
+
+        <!-- Right: contact block-->
+        <address class="contact-block">
+            <div class="contact-city">Melbourne</div>
+            <div>Wellington Road, Clayton<br>Victoria, 3800</div>
+            <div><a href="">+61 111 222 333</a></div>
+            <div><a href="">iconicprintsoffical@gmail.com</a></div>
+        </address>
+    </div>
+</footer>
+
+
+
 </body>
 </html>

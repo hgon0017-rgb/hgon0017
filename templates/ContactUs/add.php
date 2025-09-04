@@ -8,8 +8,8 @@ $this->assign('title', 'Contact Us');
 
 <style>
     :root {
-        --accent: #d35610; /* 橙色主色 */
-        --accent-hover: #b8470c;
+        --accent: #000000;       /* 纯黑 */
+        --accent-hover: #222222; /* 悬停时稍微浅一点的黑灰 */
         --text: #1a1a1a;
         --muted: #6b6b6b;
         --bg: #f6f7fb;
@@ -36,7 +36,7 @@ $this->assign('title', 'Contact Us');
     .contact-form h3 {
         font-size: 32px;
         font-weight: 800;
-        color: var(--accent);
+        color: var(--accent);   /* 纯黑标题 */
         margin-bottom: 22px;
         text-align: center;
         letter-spacing: .3px;
@@ -70,7 +70,7 @@ $this->assign('title', 'Contact Us');
     input:focus,
     textarea:focus {
         border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(211, 86, 16, .15);
+        box-shadow: 0 0 0 3px rgba(0,0,0,.15); /* 黑色阴影 */
     }
 
     .checkbox {
@@ -85,14 +85,13 @@ $this->assign('title', 'Contact Us');
     .checkbox input[type="checkbox"]{
         width: 18px;
         height: 18px;
-        accent-color: var(--accent); /* 现代浏览器原生着色 */
+        accent-color: var(--accent);
         cursor: pointer;
     }
 
-    /* 修复按钮文本被“割开”的问题：用 flex 居中并去除默认外观/内边距 */
     .btn-submit {
         width: 100%;
-        background: var(--accent);
+        background: var(--accent);   /* 纯黑按钮 */
         color: #fff;
         border: none;
         border-radius: 10px;
@@ -105,14 +104,14 @@ $this->assign('title', 'Contact Us');
         display: flex;
         align-items: center;
         justify-content: center;
-        line-height: 1;           /* 防止行高造成的截断 */
+        line-height: 1;
         text-decoration: none;
         -webkit-appearance: none;
         appearance: none;
     }
-    button::-moz-focus-inner { border: 0; padding: 0; } /* Firefox 内部边框 */
+    button::-moz-focus-inner { border: 0; padding: 0; }
     .btn-submit:hover { background: var(--accent-hover); }
-    .btn-submit:focus { outline: none; box-shadow: 0 0 0 3px rgba(211,86,16,.2); }
+    .btn-submit:focus { outline: none; box-shadow: 0 0 0 3px rgba(0,0,0,.2); }
 </style>
 
 <div class="contact-form">
@@ -131,8 +130,6 @@ $this->assign('title', 'Contact Us');
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <div class="g-recaptcha" data-sitekey="<?= h(\Cake\Core\Configure::read('Recaptcha.siteKey')) ?>"></div>
 
-
     <?= $this->Form->button('SEND ENQUIRY', ['class' => 'btn-submit']) ?>
     <?= $this->Form->end() ?>
 </div>
-

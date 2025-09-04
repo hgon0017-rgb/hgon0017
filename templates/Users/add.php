@@ -3,28 +3,232 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
+$this->assign('title', 'Add User');
 ?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Users'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+
+<style>
+    /* ===== Page look & feel ===== */
+    :root{
+        --bg:#f6f7fb;
+        --card:#fff;
+        --ring:#e9e9ee;
+        --muted:#6b7280;
+        --text:#111827;
+        --primary:#000;       /* 纯黑主色 */
+        --primary-2:#222;     /* hover */
+        --ok:#16a34a;
+        --danger:#dc2626;
+    }
+
+    .users-add-body{
+        background: var(--bg);
+        padding: 24px 16px 48px;
+    }
+
+    .card-wrap{
+        max-width: 860px;
+        margin: 0 auto;
+        background: var(--card);
+        border: 1px solid var(--ring);
+        border-radius: 16px;
+        box-shadow: 0 10px 28px rgba(0,0,0,.06);
+        overflow: hidden;
+    }
+
+    /* Header */
+    .card-head{
+        padding: 22px 24px;
+        border-bottom: 1px solid var(--ring);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+    }
+    .card-title{
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--text);
+        margin: 0;
+    }
+    .actions-inline{
+        display: inline-flex; gap: 10px;
+    }
+    .btn-link{
+        display: inline-flex;
+        gap: 6px; align-items:center;
+        background: #fff;
+        border: 1px solid var(--ring);
+        color: var(--text);
+        padding: 8px 12px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .btn-link:hover{ background:#fafafa; }
+
+    /* Form */
+    .card-body{ padding: 22px 24px 28px; }
+    .form-grid{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 20px;
+    }
+    @media (max-width: 720px){
+        .form-grid{ grid-template-columns: 1fr; }
+    }
+
+    .form-field label{
+        display:block; font-weight:700; margin-bottom:8px; color:var(--text);
+    }
+    .form-field input,
+    .form-field textarea,
+    .form-field select{
+        width: 100%;
+        border: 1px solid var(--ring);
+        border-radius: 10px;
+        padding: 12px 12px;
+        font-size: 15px;
+        outline: none;
+        background: #fff;
+        transition: box-shadow .15s ease, border-color .15s ease;
+    }
+    .form-field input:focus{ border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,0,0,.12); }
+
+    .field-help{
+        font-size:12px; color:var(--muted); margin-top:6px;
+    }
+
+    .error-message{
+        margin-top:6px;
+        color: var(--danger);
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* Controls */
+    .form-actions{
+        display:flex; gap:12px; margin-top: 8px;
+    }
+    .btn-primary{
+        background: var(--primary);
+        color:#fff;
+        border:none;
+        border-radius: 10px;
+        padding: 12px 16px;
+        font-weight:800;
+        cursor:pointer;
+    }
+    .btn-primary:hover{ background: var(--primary-2); }
+    .btn-ghost{
+        background:#fff; color:var(--text);
+        border:1px solid var(--ring);
+        border-radius:10px; padding:12px 16px;
+        text-decoration:none; font-weight:700;
+    }
+    .btn-ghost:hover{ background:#fafafa; }
+
+    /* Password toggle */
+    .password-wrap{
+        position: relative;
+    }
+    .toggle-pass{
+        position:absolute; right:10px; top:50%; transform: translateY(-50%);
+        border:0; background:transparent; cursor:pointer;
+        color:var(--muted); font-size:13px; font-weight:700;
+    }
+    .toggle-pass:focus{ outline: none; color: var(--text); }
+</style>
+
+<div class="users-add-body">
+    <div class="card-wrap">
+
+        <div class="card-head">
+            <h2 class="card-title">Add User</h2>
+            <div class="actions-inline">
+                <?= $this->Html->link('← Back to Users', ['action' => 'index'], ['class' => 'btn-link']) ?>
+            </div>
         </div>
-    </aside>
-    <div class="column column-80">
-        <div class="users form content">
-            <?= $this->Form->create($user) ?>
-            <fieldset>
-                <legend><?= __('Add User') ?></legend>
-                <?php
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('nonce');
-                    echo $this->Form->control('nonce_expiry', ['empty' => true]);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+
+        <div class="card-body">
+            <?= $this->Form->create($user, ['novalidate' => true]) ?>
+
+            <div class="form-grid">
+
+                <!-- Email -->
+                <div class="form-field">
+                    <?= $this->Form->label('email', 'Email') ?>
+                    <?= $this->Form->control('email', [
+                        'label' => false,
+                        'type' => 'email',
+                        'placeholder' => 'name@example.com',
+                        'required' => true,
+                    ]) ?>
+                    <div class="field-help">We’ll never share your email.</div>
+                    <?= $this->Form->error('email', null, ['class' => 'error-message']) ?>
+                </div>
+
+                <!-- Password + toggle -->
+                <div class="form-field password-wrap">
+                    <?= $this->Form->label('password', 'Password') ?>
+                    <?= $this->Form->control('password', [
+                        'label' => false,
+                        'type' => 'password',
+                        'placeholder' => 'Set a secure password',
+                        'required' => true,
+                        'id' => 'pass-input'
+                    ]) ?>
+                    <button type="button" class="toggle-pass" id="toggle-pass">SHOW</button>
+                    <div class="field-help">At least 8 characters is recommended.</div>
+                    <?= $this->Form->error('password', null, ['class' => 'error-message']) ?>
+                </div>
+
+                <!-- Nonce -->
+                <div class="form-field">
+                    <?= $this->Form->label('nonce', 'Nonce') ?>
+                    <?= $this->Form->control('nonce', [
+                        'label' => false,
+                        'placeholder' => 'Optional one-time token',
+                    ]) ?>
+                    <div class="field-help">Optional token for verification or invitations.</div>
+                    <?= $this->Form->error('nonce', null, ['class' => 'error-message']) ?>
+                </div>
+
+                <!-- Nonce Expiry -->
+                <div class="form-field">
+                    <?= $this->Form->label('nonce_expiry', 'Nonce Expiry') ?>
+                    <?= $this->Form->control('nonce_expiry', [
+                        'label' => false,
+                        // HTML5 本地选择器：datetime-local
+                        'type' => 'datetime-local',
+                        'empty' => true,
+                    ]) ?>
+                    <div class="field-help">Leave empty if the token does not expire.</div>
+                    <?= $this->Form->error('nonce_expiry', null, ['class' => 'error-message']) ?>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <?= $this->Form->button('Create User', ['class' => 'btn-primary']) ?>
+                <?= $this->Html->link('Cancel', ['action' => 'index'], ['class' => 'btn-ghost']) ?>
+            </div>
+
             <?= $this->Form->end() ?>
         </div>
+
     </div>
 </div>
+
+<script>
+    // 密码可见/隐藏
+    (function(){
+        const btn = document.getElementById('toggle-pass');
+        const input = document.getElementById('pass-input');
+        if (!btn || !input) return;
+        btn.addEventListener('click', () => {
+            const show = input.getAttribute('type') === 'password';
+            input.setAttribute('type', show ? 'text' : 'password');
+            btn.textContent = show ? 'HIDE' : 'SHOW';
+        });
+    })();
+</script>
