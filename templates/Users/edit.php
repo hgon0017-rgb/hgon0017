@@ -22,10 +22,10 @@
             <fieldset>
                 <legend><?= __('Edit User') ?></legend>
                 <?php
-                    echo $this->Form->control('email');
-                    echo $this->Form->control('password');
-                    echo $this->Form->control('nonce');
-                    echo $this->Form->control('nonce_expiry', ['empty' => true]);
+                echo $this->Form->control('email');
+                echo $this->Form->control('password');
+                echo $this->Form->control('nonce');
+                echo $this->Form->control('nonce_expiry', ['empty' => true]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
