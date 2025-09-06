@@ -14,7 +14,7 @@ use Cake\Event\EventInterface;
 class UsersController extends AppController
 {
     /**
-     * beforeFilter - 拦截 customer 禁止访问后台
+     * beforeFilter
      */
     public function beforeFilter(EventInterface $event)
     {
