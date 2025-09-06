@@ -27,11 +27,12 @@ use Cake\ORM\Entity;
 class User extends Entity
 {
     /**
-     * 可批量赋值字段（表单可写）
+     * Fields that can be mass assigned via newEntity() or patchEntity().
      *
-     * 说明：
-     * - created / modified 由 Timestamp 行为自动维护，保持 false
-     * - 你需要在表单里保存的字段：email / password / role / nonce / nonce_expiry / first_name / last_name / avatar -> true
+     * Notes:
+     * - "created" and "modified" are automatically handled by the Timestamp behavior, keep them false.
+     * - Fields that should be editable via forms: email, password, role, nonce, nonce_expiry,
+     *   first_name, last_name, avatar → true
      */
     protected array $_accessible = [
         'email'         => true,
@@ -39,23 +40,23 @@ class User extends Entity
         'first_name'    => true,
         'last_name'     => true,
         'avatar'        => true,
-        'role'          => true,   // ✅ 允许表单写入 role
-        'nonce'         => true,   // ✅ 允许写入
-        'nonce_expiry'  => true,   // ✅ 允许写入（表单 datetime-local）
-        'created'       => false,  // 由行为维护
-        'modified'      => false,  // 由行为维护
-        'blog_articles' => true,   // 如无此关联可去掉
+        'role'          => true,   // ✅ allow role assignment in forms
+        'nonce'         => true,   // ✅ allow write
+        'nonce_expiry'  => true,   // ✅ allow write (datetime-local from form)
+        'created'       => false,  // handled by behavior
+        'modified'      => false,  // handled by behavior
+        'blog_articles' => true,   // can be removed if no association exists
     ];
 
     /**
-     * 从 JSON / toArray 中隐藏的字段
+     * Fields excluded from JSON and array outputs.
      */
     protected array $_hidden = [
         'password',
     ];
 
     /**
-     * 虚拟字段（可选，但有 getter 时声明更直观）
+     * Virtual fields (optional, but clearer to declare if getters exist).
      */
     protected array $_virtual = [
         'user_full_display',
@@ -63,7 +64,7 @@ class User extends Entity
     ];
 
     /**
-     * 显示用完整信息（虚拟字段）
+     * Virtual field: display-friendly full identity (name + email).
      */
     protected function _getUserFullDisplay(): string
     {
@@ -74,7 +75,7 @@ class User extends Entity
     }
 
     /**
-     * 用户全名（虚拟字段）
+     * Virtual field: full name (first + last).
      */
     protected function _getFullName(): string
     {
@@ -82,14 +83,17 @@ class User extends Entity
     }
 
     /**
-     * 密码自动哈希
+     * Automatically hash the password when it is set.
+     *
+     * - If a non-empty password is provided, hash it before saving.
+     * - If password is empty, keep the original (useful in edit forms when password is not changed).
      */
     protected function _setPassword(string $password): ?string
     {
         if (strlen($password) > 0) {
             return (new DefaultPasswordHasher())->hash($password);
         }
-        // 空字符串时保留原值（edit 不改密码）
+        // Keep original value when empty (edit form does not change password)
         return $password;
     }
 }
