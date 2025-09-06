@@ -26,7 +26,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             --muted: #767676;
             --text: #222;
             --ring: #e9e9ee;
-            --accent: #000000;
+            --accent: #292929;
         }
 
         * {
@@ -341,7 +341,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <a href="#">Products</a>
                 </li>
                 <li class="h6">
-                    <a href="#">About us</a>
+                    <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']) ?>">About us</a>
                 </li>
             </nav>
             <div class="copyright">

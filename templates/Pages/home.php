@@ -86,7 +86,7 @@ use Cake\Http\Exception\NotFoundException;
         width: 28px; /* circle size  */
         height: 28px;
         border-radius: 50%; /* make it round  */
-        background: #007bff; /* blue circle  */
+        background: #292929; /* blue circle  */
         color: #fff; /* white text  */
         display: flex;
         align-items: center;
