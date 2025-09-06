@@ -5,7 +5,7 @@
  */
 $this->assign('title', 'Edit User');
 
-// 格式化 datetime-local 的值
+// formatting datetime-local of datetimelocal
 $nonceExpiryValue = '';
 if (!empty($user->nonce_expiry)) {
     try {
