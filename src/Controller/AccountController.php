@@ -16,7 +16,7 @@ class AccountController extends AppController
     {
         $this->Authorization->skipAuthorization();
 
-        // TODO: 实际查询订单数据
+        // TODO: check the actual order
         $orders = [
             ['id' => 101, 'date' => '2025-09-01', 'status' => 'Shipped'],
             ['id' => 102, 'date' => '2025-09-05', 'status' => 'Processing'],
@@ -36,7 +36,7 @@ class AccountController extends AppController
         if ($this->request->is(['post','patch','put'])) {
             $data = $this->request->getData();
             if (isset($data['password']) && $data['password'] === '') {
-                unset($data['password']); // 留空则不改密码
+                unset($data['password']); //if it is blank, the password will not be changed
             }
             $user = $usersTable->patchEntity($current, $data);
             if ($usersTable->save($user)) {
@@ -79,7 +79,7 @@ class AccountController extends AppController
             }
         }
 
-        // TODO: 实际应从 DB 查用户的列表
+        // TODO: Find the user list from DB
         $lists = [
             ['id'=>1, 'name'=>'Office Supplies'],
             ['id'=>2, 'name'=>'Electronics'],
