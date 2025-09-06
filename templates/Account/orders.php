@@ -5,9 +5,9 @@
  */
 $this->assign('title', 'Order history');
 $orders = $orders ?? [
-    // 没接数据库时的示例数据；接上 DB 后可删除这几行
-    ['id'=>101,'order_no'=>101,'date'=>'2025-09-01','items_count'=>null,'total'=>null,'status'=>'Shipped'],
-    ['id'=>102,'order_no'=>102,'date'=>'2025-09-05','items_count'=>null,'total'=>null,'status'=>'Processing'],
+    // just for example
+    ['id'=>1,'order_no'=>1,'date'=>'2025-09-01','items_count'=>null,'total'=>null,'status'=>'Shipped'],
+    ['id'=>2,'order_no'=>2,'date'=>'2025-09-02','items_count'=>null,'total'=>null,'status'=>'Processing'],
 ];
 ?>
 <style>
