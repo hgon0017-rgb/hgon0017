@@ -30,8 +30,9 @@ class ProductsController extends AppController
      */
     public function index()
     {
+        $this->Authorization->skipAuthorization();
         $query = $this->Products->find();
-        $query = $this->Authorization->applyScope($query);
+//        $query = $this->Authorization->applyScope($query);
         $products = $this->paginate($query);
 
         $this->set(compact('products'));

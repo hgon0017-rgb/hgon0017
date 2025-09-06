@@ -239,7 +239,6 @@ use Cake\Http\Exception\NotFoundException;
     ]) ?>
     <div class="hero-content">
         <div class="hero-inner">
-            <!--Products -->
             <h1 class="hero-title">
                 <a href="#products" title="Jump to products">Iconic Prints</a>
             </h1>
