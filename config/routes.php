@@ -94,4 +94,19 @@ return function (RouteBuilder $routes): void {
      * });
      * ```
      */
+    // Account
+    $routes->connect('/account', ['controller' => 'Account', 'action' => 'dashboard']);
+
+// Orders
+    $routes->connect('/orders', ['controller' => 'Orders', 'action' => 'index']);
+    $routes->connect('/orders/view/*', ['controller' => 'Orders', 'action' => 'view']);
+    $routes->connect('/orders/track', ['controller' => 'Orders', 'action' => 'track']);
+
+// Shopping Lists
+    $routes->connect('/lists', ['controller' => 'ShoppingLists', 'action' => 'index']);
+    $routes->connect('/lists/add', ['controller' => 'ShoppingLists', 'action' => 'add']);
+    $routes->connect('/lists/delete/*', ['controller' => 'ShoppingLists', 'action' => 'delete']);
+    $routes->connect('/lists/add-item/*', ['controller' => 'ShoppingLists', 'action' => 'addItem']);
+    $routes->connect('/lists/remove-item/*', ['controller' => 'ShoppingLists', 'action' => 'removeItem']);
+
 };

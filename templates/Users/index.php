@@ -23,6 +23,7 @@
         <tr style="background:#f2f2f2; text-align:left;">
             <th style="border:1px solid #ccc; padding:8px;"><?= $this->Paginator->sort('id', 'ID') ?></th>
             <th style="border:1px solid #ccc; padding:8px;"><?= $this->Paginator->sort('email', 'Email') ?></th>
+            <th style="border:1px solid #ccc; padding:8px;"><?= $this->Paginator->sort('role', 'Role') ?></th>
             <th style="border:1px solid #ccc; padding:8px;"><?= $this->Paginator->sort('nonce', 'Nonce') ?></th>
             <th style="border:1px solid #ccc; padding:8px;"><?= $this->Paginator->sort('nonce_expiry', 'Expiry') ?></th>
             <th style="border:1px solid #ccc; padding:8px;"><?= $this->Paginator->sort('created', 'Created') ?></th>
@@ -36,6 +37,7 @@
             <tr style="background:<?= $rowIndex % 2 == 0 ? '#fff' : '#fafafa' ?>;">
                 <td style="border:1px solid #ccc; padding:8px;"><?= $this->Number->format($user->id) ?></td>
                 <td style="border:1px solid #ccc; padding:8px;"><?= h($user->email) ?></td>
+                <td style="border:1px solid #ccc; padding:8px;"><?= h($user->role) ?></td>
                 <td style="border:1px solid #ccc; padding:8px;"><?= h($user->nonce) ?></td>
                 <td style="border:1px solid #ccc; padding:8px;"><?= h($user->nonce_expiry) ?></td>
                 <td style="border:1px solid #ccc; padding:8px;"><?= $user->created ? $user->created->format('Y-m-d H:i') : '' ?></td>
@@ -70,24 +72,17 @@
 
     <br>
 
-
     <div style="margin-top:15px; font-size:14px; text-align:center;">
-
-
         <?= $this->Paginator->prev('‹', [
             'escape' => false,
             'disabledTag' => '<span style="margin:0 8px;color:#ccc;font-size:16px;">‹</span>',
             'style' => 'margin:0 8px;color:#666;text-decoration:none;font-size:16px;'
         ]) ?>
 
-
         <?= $this->Paginator->numbers([
-            'before' => '',
-            'after' => '',
             'separator' => ' ',
             'modulus' => 5,
             'currentTag' => 'span',
-            'currentClass' => 'active',
             'templates' => [
                 'number' => '<a href="{{url}}" style="margin:0 8px;color:#666;
                              text-decoration:none;font-size:14px;">{{text}}</a>',
@@ -96,12 +91,10 @@
             ]
         ]) ?>
 
-
         <?= $this->Paginator->next('›', [
             'escape' => false,
             'disabledTag' => '<span style="margin:0 8px;color:#ccc;font-size:16px;">›</span>',
             'style' => 'margin:0 8px;color:#666;text-decoration:none;font-size:16px;'
         ]) ?>
-
     </div>
 </div>
