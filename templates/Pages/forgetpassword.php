@@ -7,7 +7,7 @@ $this->assign('title', 'Forgot password');
 
 <style>
     :root{
-        --accent: #000000;
+        --accent: #292929;
         --text:#1a1a1a;
         --muted:#6b6b6b;
         --ring:#e6e6e6;
