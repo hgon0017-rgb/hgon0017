@@ -32,11 +32,27 @@ class ProductsController extends AppController
     public function index()
     {
         $this->Authorization->skipAuthorization();
+
+        // Read sort + direction from query (default to pricing ASC)
+        $sort      = $this->request->getQuery('sort', 'pricing');
+        $direction = strtolower($this->request->getQuery('direction', 'asc'));
+
+        if (!in_array($direction, ['asc','desc'], true)) {
+            $direction = 'asc';
+        }
+
+        // Tell the paginator which fields may be sorted from the URL
+        $this->paginate = [
+            'order' => [$sort => $direction],
+            // CakePHP 4:
+            'sortableFields' => ['name', 'pricing', 'category', 'stock', 'discount'],
+            'limit' => 12
+        ];
+
         $query = $this->Products->find();
-//        $query = $this->Authorization->applyScope($query);
         $products = $this->paginate($query);
 
-        $this->set(compact('products'));
+        $this->set(compact('products', 'sort', 'direction'));
     }
 
     /**
