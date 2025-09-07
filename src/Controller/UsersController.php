@@ -23,7 +23,7 @@ class UsersController extends AppController
         //AuthorizationRequiredException
         $this->Authorization->skipAuthorization();
 
-        // if user is custumer intercept and jump
+        // if user is customer intercept and jump
         $identity = $this->request->getAttribute('identity');
         if ($identity && $identity->get('role') === 'customer') {
             $adminActions = ['index', 'view', 'add', 'edit', 'delete'];
