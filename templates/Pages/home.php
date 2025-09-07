@@ -318,13 +318,3 @@ use Cake\Http\Exception\NotFoundException;
     </div>
 </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const navLinks = document.querySelectorAll('.nav-left a');
-        navLinks.forEach(link => {
-            if (link.textContent.trim() === 'Products') {
-                link.setAttribute('href', '#products');
-            }
-        });
-    });
-</script>
