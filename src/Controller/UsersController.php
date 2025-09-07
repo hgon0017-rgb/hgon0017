@@ -23,7 +23,7 @@ class UsersController extends AppController
         // ✅ 避免 AuthorizationRequiredException
         $this->Authorization->skipAuthorization();
 
-        // 如果用户是 customer，拦截后台动作
+        // if user is custumer intercept and jump
         $identity = $this->request->getAttribute('identity');
         if ($identity && $identity->get('role') === 'customer') {
             $adminActions = ['index', 'view', 'add', 'edit', 'delete'];
