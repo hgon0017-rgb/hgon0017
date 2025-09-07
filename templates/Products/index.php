@@ -116,18 +116,21 @@ $products = [
     }
 </style>
 
-<!-- fliter bar at the top -->
+<!-- filter bar at the top -->
 <div class="filter-bar">
     <div class="filters">
-        <button>Sort by Popular</button>
+<!--        <button>Sort by Popular</button>-->
         <button>On sale</button>
         <select>
-            <option>Price</option>
-            <option>Low to High</option>
-            <option>High to Low</option>
+            <?= $this->Form->create(null, ['type' => 'get', 'id' => 'sortForm']) ?>
+            <?= $this->Form->hidden('sort', ['value' => 'pricing']) ?>
+            <label for="sortPrice">Sort by price:</label>
+            <select name="direction" id="sortPrice" onchange="this.form.submit()">
+                <option value="asc"  <?= ($direction ?? '') === 'asc'  ? 'selected' : '' ?>>Low to High</option>
+                <option value="desc" <?= ($direction ?? '') === 'desc' ? 'selected' : '' ?>>High to Low</option>
+            </select>
+            <?= $this->Form->end() ?>
         </select>
-        <button>Extra savings</button>
-        <button>In-stock</button>
         <span><?= count($products) ?> products</span>
     </div>
     <div class="search-box">
@@ -135,7 +138,7 @@ $products = [
     </div>
 </div>
 
-<!-- producct card -->
+<!-- product card -->
 <div class="products-grid">
     <?php foreach ($products as $p): ?>
         <div class="product-card">
