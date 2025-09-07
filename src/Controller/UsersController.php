@@ -74,7 +74,7 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
 
-            // 白名单 role
+            //role
             $allowedRoles = ['customer', 'admin'];
             if (!in_array($user->role ?? 'customer', $allowedRoles, true)) {
                 $user->role = 'customer';
