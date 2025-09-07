@@ -40,6 +40,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             margin-top: auto;         /* push footer to bottom */
             flex-shrink: 0;
         }
+        /* Make the logo look clickable and add a subtle hover effect */
+        .logo-link img {
+            cursor: pointer; /* Change cursor to indicate clickability */
+            transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth animation */
+        }
+        .logo-link img:hover {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+            opacity: 0.9; /* Slight dimming to indicate hover */
+        }
     </style>
 
 </head>
@@ -47,10 +56,19 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
 <header class="navbar">
     <div class="nav-left">
-        <?= $this->Html->image('Iconic-Prints-Logo.png', [
-            'alt' => 'Iconic Prints Logo',
-            'class' => 'site-logo'
-        ]) ?>
+        <?= $this->Html->link(
+        // Render the site logo as a clickable link
+            $this->Html->image('Iconic-Prints-Logo.png', [
+                'alt' => 'Iconic Prints Logo',  // Alternative text for accessibility
+                'class' => 'site-logo'          // CSS class for styling
+            ]),
+            // Target route: Pages controller, display action, "home" view
+            ['controller' => 'Pages', 'action' => 'display', 'home'],
+            [
+                'escape' => false,   // Allow image HTML to be rendered inside the link
+                'class' => 'logo-link' // Additional class for styling and hover effects
+            ]
+        ) ?>
     </div>
 
     <div class="nav-right">
