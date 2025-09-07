@@ -72,7 +72,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </div>
 
     <div class="nav-right">
-        <?= $this->Html->link('Dashboard', '/', []) ?>
+        <?= $this->Html->link('Home', '/', []) ?>
         <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']) ?>">About</a>
         <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']) ?>">Products</a>
         <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'help']) ?>">Help</a>
