@@ -18,6 +18,30 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <title><?= h($this->fetch('title')) ?></title>
     <?= $this->fetch('meta') . $this->fetch('default') . $this->fetch('script') ?>
     <?= $this->Html->css('default') ?>
+    <style>
+        /* === Fix blank space under footer === */
+        html, body {
+            height: 100%;
+            margin: 0;        /* remove default body margin */
+            padding: 0;
+        }
+
+        body {
+            display: flex;            /* vertical layout: header, main, footer */
+            flex-direction: column;
+            min-height: 100vh;        /* always at least viewport height */
+        }
+
+        main.main {
+            flex: 1 0 auto;           /* main grows to fill space */
+        }
+
+        .site-footer {
+            margin-top: auto;         /* push footer to bottom */
+            flex-shrink: 0;
+        }
+    </style>
+
 </head>
 <body>
 
