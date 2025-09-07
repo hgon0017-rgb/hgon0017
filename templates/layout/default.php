@@ -23,20 +23,19 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
 <header class="navbar">
     <div class="nav-left">
-        <?= $this->Html->image('Iconic Prints.png', [
+        <?= $this->Html->image('Iconic-Prints-Logo.png', [
             'alt' => 'Iconic Prints Logo',
             'class' => 'site-logo'
         ]) ?>
+    </div>
 
+    <div class="nav-right">
         <?= $this->Html->link('Dashboard', '/', []) ?>
         <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']) ?>">About</a>
         <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']) ?>">Products</a>
         <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'help']) ?>">Help</a>
-    </div>
 
-    <div class="nav-right">
         <?php if ($this->Identity->isLoggedIn()): ?>
-            <!--AdminUsers/index -->
             <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Admin</a>
             <?= $this->Form->postLink(
                 'Logout',
@@ -45,14 +44,37 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             ) ?>
         <?php else: ?>
             <?= $this->Html->link(
-                'Login or Register ➜',
+                'Login',
                 ['controller'=>'Auth','action'=>'login','prefix'=>false],
-                ['class'=>'btn']
+                ['id' => 'loginBtn']
             ) ?>
+            <style>
+                #loginBtn {
+                    display:inline-block;
+                    padding:8px 18px;
+                    border:2px solid #fff;   /* white border */
+                    border-radius:6px;
+                    background:transparent;
+                    color:#fff;              /* white text */
+                    text-decoration:none;
+                    font-weight:600;
+                    font-size:14px;
+                    transition: all 0.3s ease;
+                }
+
+                #loginBtn:hover {
+                    background:#fff;   /* white fill on hover */
+                    color:#000;        /* black text */
+                    transform:translateY(-2px);
+                    box-shadow:0 4px 8px rgba(0,0,0,0.2);
+                }
+            </style>
+
         <?php endif; ?>
         <a href="#">Cart 🛒</a>
     </div>
 </header>
+
 <!--Footer-->
 
 <main class="main">
