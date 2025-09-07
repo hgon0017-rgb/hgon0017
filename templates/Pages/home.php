@@ -271,6 +271,15 @@ use Cake\Http\Exception\NotFoundException;
         z-index:1;                             /* sits above images, below text */
     }
 
+    /* Section Headings */
+    h2 {
+        font-size: 2rem;        /* bigger */
+        font-weight: 700;       /* bold */
+        color: #222;            /* deep gray */
+        margin-bottom: 1rem;
+        letter-spacing: 0.5px;
+    }
+
 </style>
 
 <!-- HERO -->
