@@ -1,14 +1,15 @@
 <?php
 /**
- * Users index page with sidebar (Income / Products / Users only)
+ * Users index page with sidebar (Income / Products / Users)
  *
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\User> $users
  */
 
-$dashboardUrl = $this->Url->build(['controller' => 'Admin', 'action' => 'dashboard']);
-$productsUrl  = $this->Url->build(['controller' => 'Users', 'action' => 'products']);
-$usersUrl     = $this->Url->build(['controller' => 'Users', 'action' => 'index']);
+// Sidebar links
+$incomeUrl   = $this->Url->build(['controller' => 'Users', 'action' => 'income']);   // ✅ users/income
+$productsUrl = $this->Url->build(['controller' => 'Users', 'action' => 'products']); // ✅ users/products
+$usersUrl    = $this->Url->build(['controller' => 'Users', 'action' => 'index']);
 ?>
 
 <style>
@@ -35,8 +36,7 @@ $usersUrl     = $this->Url->build(['controller' => 'Users', 'action' => 'index']
     <aside class="sidebar">
         <h4>Admin</h4>
         <ul class="nav-list">
-            <!-- 把 Dashboard 改成 收入 -->
-            <li><a class="nav-link" href="<?= $dashboardUrl ?>">💰 Income</a></li>
+            <li><a class="nav-link" href="<?= $incomeUrl ?>">💰 Income</a></li>
             <li><a class="nav-link" href="<?= $productsUrl ?>">🛒 Products</a></li>
             <li><a class="nav-link active" href="<?= $usersUrl ?>">👥 Users</a></li>
         </ul>
@@ -48,8 +48,8 @@ $usersUrl     = $this->Url->build(['controller' => 'Users', 'action' => 'index']
             <div style="display:flex; align-items:center; justify-content:space-between;">
                 <h3 style="margin:0"><?= __('Users') ?></h3>
                 <div>
-                    <!-- 保留 New User，删除 Product 按钮 -->
-                    <?= $this->Html->link('+ New User', ['action'=>'add'], ['class'=>'btn btn-dark']) ?>
+                    <?= $this->Html->link('+ New User', ['action' => 'add'], ['class' => 'btn btn-dark']) ?>
+
                 </div>
             </div>
 
@@ -77,12 +77,12 @@ $usersUrl     = $this->Url->build(['controller' => 'Users', 'action' => 'index']
                         <td><?= $user->created ? $user->created->format('Y-m-d H:i') : '' ?></td>
                         <td><?= $user->modified ? $user->modified->format('Y-m-d H:i') : '' ?></td>
                         <td style="text-align:center;">
-                            <?= $this->Html->link('Details ↗', ['action'=>'view', $user->id], ['class'=>'btn btn-grey']) ?>
-                            <?= $this->Html->link('Edit ✎', ['action'=>'edit', $user->id], ['class'=>'btn btn-dark']) ?>
-                            <?= $this->Form->postLink('Delete ✖', ['action'=>'delete', $user->id], [
-                                'confirm'=>'Are you sure?',
-                                'class'=>'btn',
-                                'style'=>'background:#c00;color:#fff;'
+                            <?= $this->Html->link('Details ↗', ['action' => 'view', $user->id], ['class'=>'btn btn-grey']) ?>
+                            <?= $this->Html->link('Edit ✎', ['action' => 'edit', $user->id], ['class'=>'btn btn-dark']) ?>
+                            <?= $this->Form->postLink('Delete ✖', ['action' => 'delete', $user->id], [
+                                'confirm' => 'Are you sure?',
+                                'class'   => 'btn',
+                                'style'   => 'background:#c00;color:#fff;'
                             ]) ?>
                         </td>
                     </tr>
