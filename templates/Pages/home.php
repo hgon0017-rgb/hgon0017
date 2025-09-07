@@ -12,6 +12,12 @@ use Cake\Http\Exception\NotFoundException;
 ?>
 
 <style>
+
+    /* Background colour to match logo */
+    body {
+        background-color: #f9f6f1; /* warm off-white */
+    }
+
     /* Smooth anchor scroll */
     html { scroll-behavior: smooth; }
 
