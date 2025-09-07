@@ -182,4 +182,11 @@ class UsersController extends AppController
         $this->Authentication->logout();
         return $this->redirect(['action' => 'login']);
     }
+    // src/Controller/UsersController.php
+    public function income()
+    {
+        // $this->set(compact('metrics'));
+        $this->viewBuilder()->setTemplate('income'); // 渲染 templates/Users/income.php
+    }
+
 }
