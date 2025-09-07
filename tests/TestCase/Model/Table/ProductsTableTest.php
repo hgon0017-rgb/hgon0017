@@ -24,7 +24,7 @@ class ProductsTableTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Products',
+        'app.Product',
     ];
 
     /**
@@ -35,8 +35,8 @@ class ProductsTableTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $config = $this->getTableLocator()->exists('Products') ? [] : ['className' => ProductsTable::class];
-        $this->Products = $this->getTableLocator()->get('Products', $config);
+        $config = $this->getTableLocator()->exists('Product') ? [] : ['className' => ProductsTable::class];
+        $this->Products = $this->getTableLocator()->get('Product', $config);
     }
 
     /**

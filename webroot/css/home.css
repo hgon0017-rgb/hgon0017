@@ -74,7 +74,7 @@ hr {
     display: none;
 }
 
-/* Products grid: match the side padding of .howitworks and cap overall width */
+/* Product grid: match the side padding of .howitworks and cap overall width */
 .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(260px, 1fr)); /* tighter cards */

@@ -74,7 +74,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <div class="nav-right">
         <?= $this->Html->link('Home', '/', []) ?>
         <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']) ?>">About</a>
-        <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']) ?>">Products</a>
+        <a href="<?= $this->Url->build(['controller' => 'Product', 'action' => 'index']) ?>">Products</a>
         <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'help']) ?>">Help</a>
 
         <?php if ($this->Identity->isLoggedIn()): ?>
@@ -133,7 +133,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <a href="<?= $this->Url->build(['controller' => 'ContactUs', 'action' => 'add']) ?>">Contact</a>
                 </li>
                 <li class="h6">
-                    <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']) ?>">Products</a>
+                    <a href="<?= $this->Url->build(['controller' => 'Product', 'action' => 'index']) ?>">Products</a>
                 </li>
                 <li class="h6">
                     <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']) ?>">About us</a>

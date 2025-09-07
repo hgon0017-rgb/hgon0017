@@ -1,6 +1,6 @@
 <?php
 /**
- * Users index page with sidebar (Income / Products / Users)
+ * Users index page with sidebar (Income / Product / Users)
  *
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\User> $users

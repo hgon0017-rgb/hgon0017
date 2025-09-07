@@ -22,7 +22,7 @@ class ProductsControllerTest extends TestCase
      * @var list<string>
      */
     protected array $fixtures = [
-        'app.Products',
+        'app.Product',
     ];
 
     /**

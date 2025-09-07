@@ -2,7 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
-$this->assign('title', 'Products Showcase');
+$this->assign('title', 'Product Showcase');
 
 $products = [
     ['id'=>1,'name'=>'Custom Flag','image'=>'flags-custom.jpg','price'=>29.99,'compare_price'=>39.99,'rating'=>4.7,'reviews'=>120],

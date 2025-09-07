@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 /**
- * Products Controller
+ * Product Controller
  *
- * @property \App\Model\Table\ProductsTable $Products
+ * @property \App\Model\Table\ProductsTable $Product
  * @property \Authorization\Controller\Component\AuthorizationComponent $Authorization
  */
 class ProductsController extends AppController

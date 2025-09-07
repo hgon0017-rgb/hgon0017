@@ -25,7 +25,7 @@ class UsersController extends AppController
 
         // if user is customer intercept and jump
         $identity = $this->request->getAttribute('identity');
-        if ($identity && $identity->get('role') === 'customer') {
+        if ($identity && $identity->get('role') == 'customer') {
             $adminActions = ['index', 'view', 'add', 'edit', 'delete'];
             $action = $this->request->getParam('action');
             if (in_array($action, $adminActions, true)) {

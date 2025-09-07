@@ -1,7 +1,7 @@
 <?php
 /**
  * templates/Users/income.php
- * Income page with the same left sidebar (Income / Products / Users)
+ * Income page with the same left sidebar (Income / Product / Users)
  *
  * @var \App\View\AppView $this
  */
