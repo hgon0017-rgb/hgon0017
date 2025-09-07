@@ -3,7 +3,25 @@
  * @var \App\View\AppView $this
  * @var iterable<\App\Model\Entity\Product> $products
  */
+$this->assign('title', 'Products');
 ?>
+<h1>Products</h1>
+<div class="product-grid">
+    <?php foreach ($products as $p): ?>
+        <article class="product-card">
+            <?= $p->image_path
+                ? $this->Html->image($p->image_path, ['alt' => $p->name])
+                : $this->Html->image('placeholder.png', ['alt' => $p->name]) ?>
+            <h3><?= h($p->name) ?></h3>
+            <p class="desc"><?= h($p->description) ?></p>
+            <div class="meta">
+                <span class="price">$<?= number_format($p->pricing, 2) ?></span>
+                <span class="cat"><?= h($p->category) ?></span>
+            </div>
+        </article>
+    <?php endforeach; ?>
+</div>
+
 <div class="products index content">
     <?= $this->Html->link(__('New Product'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Products') ?></h3>

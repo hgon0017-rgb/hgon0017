@@ -36,7 +36,7 @@ $this->assign('title', 'Contact Us');
     .contact-form h3 {
         font-size: 32px;
         font-weight: 800;
-        color: var(--accent);   /* 纯黑标题 */
+        color: var(--accent);
         margin-bottom: 22px;
         text-align: center;
         letter-spacing: .3px;
@@ -70,7 +70,7 @@ $this->assign('title', 'Contact Us');
     input:focus,
     textarea:focus {
         border-color: var(--accent);
-        box-shadow: 0 0 0 3px rgba(0,0,0,.15); /* 黑色阴影 */
+        box-shadow: 0 0 0 3px rgba(0,0,0,.15);
     }
 
     .checkbox {
@@ -91,7 +91,7 @@ $this->assign('title', 'Contact Us');
 
     .btn-submit {
         width: 100%;
-        background: var(--accent);   /* 纯黑按钮 */
+        background: var(--accent);
         color: #fff;
         border: none;
         border-radius: 10px;

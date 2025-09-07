@@ -21,6 +21,7 @@ class ProductsController extends AppController
         parent::initialize();
 
         $this->loadComponent('Authorization.Authorization');
+        $this->Authentication->allowUnauthenticated(['index']);
     }
 
     /**

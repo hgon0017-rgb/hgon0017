@@ -20,7 +20,7 @@ class UsersController extends AppController
     {
         parent::beforeFilter($event);
 
-        // ✅ 避免 AuthorizationRequiredException
+        //AuthorizationRequiredException
         $this->Authorization->skipAuthorization();
 
         // if user is custumer intercept and jump
