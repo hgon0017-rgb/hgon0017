@@ -186,7 +186,7 @@ class UsersController extends AppController
     public function income()
     {
         // $this->set(compact('metrics'));
-        $this->viewBuilder()->setTemplate('income'); // 渲染 templates/Users/income.php
+        $this->viewBuilder()->setTemplate('income'); //templates/Users/income.php
     }
 
 }
