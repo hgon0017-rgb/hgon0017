@@ -16,296 +16,68 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= h($this->fetch('title')) ?></title>
-
-    <?= $this->fetch('meta') . $this->fetch('css') . $this->fetch('script') ?>
+    <?= $this->fetch('meta') . $this->fetch('default') . $this->fetch('script') ?>
+    <?= $this->Html->css('default') ?>
     <style>
-
-        :root {
-            --bg: #f6f7fb;
-            --card: #ffffff;
-            --muted: #767676;
-            --text: #222;
-            --ring: #e9e9ee;
-            --accent: #000000;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
+        /* === Fix blank space under footer === */
+        html, body {
+            height: 100%;
+            margin: 0;        /* remove default body margin */
             padding: 0;
         }
 
         body {
-            font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-        }
-
-        .navbar {
-            background: var(--accent);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 24px;
-        }
-
-        .nav-left, .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 18px;
-        }
-
-        .nav-left a, .nav-right a {
-            color: #fff;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .nav-left a:hover, .nav-right a:hover {
-            text-decoration: underline;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            border: 1px solid #020202;
-            background: transparent;
-            border-radius: 999px;
-            padding: 8px 12px;
-            text-decoration: none;
-            color: #000000;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.2s ease;
-        }
-
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* main */
-        .main {
-            padding: 28px 26px;
-        }
-
-        h2 {
-            margin: 18px 0 12px;
-            font-size: 22px
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-        }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--ring);
-            border-radius: 16px;
-            padding: 14px;
-            display: flex;
+            display: flex;            /* vertical layout: header, main, footer */
             flex-direction: column;
-            gap: 10px;
+            min-height: 100vh;        /* always at least viewport height */
         }
 
-        .thumb {
-            height: 120px;
-            border-radius: 12px;
-            background: #e8e8ee;
+        main.main {
+            flex: 1 0 auto;           /* main grows to fill space */
         }
 
-        .card h3 {
-            margin: 0;
-            font-size: 16px;
-        }
-
-        .card p {
-            margin: 0;
-            color: var(--muted);
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        .row {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 16px;
-            margin-top: 16px;
-        }
-
-        .card-lg {
-            background: var(--card);
-            border: 1px solid var(--ring);
-            border-radius: 16px;
-            padding: 16px;
-        }
-
-        .bullets {
-            margin: 6px 0 0 0;
-            padding-left: 18px;
-        }
-
-        .bullets li {
-            margin: 6px 0;
-        }
-
-        .tag {
-            display: inline-block;
-            background: #fff;
-            border: 1px solid var(--ring);
-            border-radius: 999px;
-            padding: 4px 10px;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-        /* ===== Footer: left copyright / center social / right spacer ===== */
         .site-footer {
-            background: #fff;
-            color: #555;
-            border-top: 1px solid #e7e7e7;
-            padding: 14px 0;
-            font-size: 14px;
+            margin-top: auto;         /* push footer to bottom */
+            flex-shrink: 0;
         }
-        .site-footer-inner {
-            display: grid;                      /* 3 columns: 1fr | auto | 1fr  */
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
+        /* Make the logo look clickable and add a subtle hover effect */
+        .logo-link img {
+            cursor: pointer; /* Change cursor to indicate clickability */
+            transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth animation */
         }
-        .site-footer .copyright { justify-self: start; }
-        .site-footer .spacer    { justify-self: end; }   /* empty, keeps center truly centered */
-
-        /* override global <a> styles inside footer */
-        .site-footer a { text-decoration: none; }
-
-        /* social icons (center) */
-        .site-footer .social {
-            display: flex; gap: 12px; justify-content: center;
-        }
-        .site-footer .social a {
-            width: 36px; height: 36px; border-radius: 50%;
-            display: inline-flex; align-items: center; justify-content: center;
-            background: #f3f4f6; color: #555; font-size: 18px;
-            transition: transform .2s, background .2s, color .2s;
-        }
-        .site-footer .social a:hover {
-            transform: translateY(-2px) scale(1.15);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-
-
-        /* --- Specific colors per platform --- */
-        .site-footer .social a.instagram { background: #E4405F; color: #fff; }
-        .site-footer .social a.twitter   { background: #000000; color: #fff; }
-        .site-footer .social a.facebook  { background: #1877F2; color: #fff; }
-        .site-footer .social a.tiktok    { background: #ff0050; color: #fff; }
-
-        .site-footer .social a:hover {
-            transform: scale(1.15);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .site-footer {
-            background: #000;   /* Avex style black background */
-            color: #fff;
-            padding: 40px 24px;
-            font-size: 14px;
-        }
-
-        .site-footer-inner {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr; /* left | center | right */
-            max-width: 1200px;
-            margin: 0 auto;
-            gap: 20px;
-        }
-
-        /* Left column */
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .footer-nav {
-            display: flex;
-            gap: 24px;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 13px;
-        }
-
-        .footer-nav a {
-            color: #fff;
-            text-decoration: none;
-        }
-
-        .footer-nav a:hover {
-            text-decoration: underline;
-        }
-
-        .copyright {
-            margin-top: 20px;
-            font-size: 12px;
-            color: #aaa;
-        }
-
-        /* Social icons (center) */
-        .social {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Right contact block */
-        .contact-block {
-            text-align: right;
-            font-style: normal;
-            font-size: 13px;
-            line-height: 1.6;
-            color: #aaa;
-        }
-
-        .contact-block .contact-city {
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 14px;
-            color: #fff;
-            margin-bottom: 6px;
-        }
-
-        .contact-block a {
-            color: #aaa;
-            text-decoration: none;
-        }
-
-        .contact-block a:hover {
-            color: #fff;
+        .logo-link img:hover {
+            transform: scale(1.05); /* Slight zoom effect on hover */
+            opacity: 0.9; /* Slight dimming to indicate hover */
         }
     </style>
+
 </head>
 <body>
 
 <header class="navbar">
     <div class="nav-left">
-        <h1>
-            IconicPrints
-        </h1>
-        <?= $this->Html->link('Dashboard', '/', []) ?>
-        <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'add']) ?>">Products</a>
-        <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'help']) ?>">Help</a>
-
+        <?= $this->Html->link(
+        // Render the site logo as a clickable link
+            $this->Html->image('Iconic-Prints-Logo.png', [
+                'alt' => 'Iconic Prints Logo',  // Alternative text for accessibility
+                'class' => 'site-logo'          // CSS class for styling
+            ]),
+            // Target route: Pages controller, display action, "home" view
+            ['controller' => 'Pages', 'action' => 'display', 'home'],
+            [
+                'escape' => false,   // Allow image HTML to be rendered inside the link
+                'class' => 'logo-link' // Additional class for styling and hover effects
+            ]
+        ) ?>
     </div>
 
     <div class="nav-right">
+        <?= $this->Html->link('Home', '/', []) ?>
+        <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']) ?>">About</a>
+        <a href="<?= $this->Url->build(['controller' => 'Product', 'action' => 'index']) ?>">Products</a>
+        <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'help']) ?>">Help</a>
+
         <?php if ($this->Identity->isLoggedIn()): ?>
-            <!--AdminUsers/index -->
             <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Admin</a>
             <?= $this->Form->postLink(
                 'Logout',
@@ -314,14 +86,37 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             ) ?>
         <?php else: ?>
             <?= $this->Html->link(
-                'Login or Register ➜',
+                'Login',
                 ['controller'=>'Auth','action'=>'login','prefix'=>false],
-                ['class'=>'btn']
+                ['id' => 'loginBtn']
             ) ?>
+            <style>
+                #loginBtn {
+                    display:inline-block;
+                    padding:8px 18px;
+                    border:2px solid #fff;   /* white border */
+                    border-radius:6px;
+                    background:transparent;
+                    color:#fff;              /* white text */
+                    text-decoration:none;
+                    font-weight:600;
+                    font-size:14px;
+                    transition: all 0.3s ease;
+                }
+
+                #loginBtn:hover {
+                    background:#fff;   /* white fill on hover */
+                    color:#000;        /* black text */
+                    transform:translateY(-2px);
+                    box-shadow:0 4px 8px rgba(0,0,0,0.2);
+                }
+            </style>
+
         <?php endif; ?>
         <a href="#">Cart 🛒</a>
     </div>
 </header>
+
 <!--Footer-->
 
 <main class="main">
@@ -338,10 +133,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <a href="<?= $this->Url->build(['controller' => 'ContactUs', 'action' => 'add']) ?>">Contact</a>
                 </li>
                 <li class="h6">
-                    <a href="#">Products</a>
+                    <a href="<?= $this->Url->build(['controller' => 'Product', 'action' => 'index']) ?>">Products</a>
                 </li>
                 <li class="h6">
-                    <a href="#">About us</a>
+                    <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']) ?>">About us</a>
                 </li>
             </nav>
             <div class="copyright">

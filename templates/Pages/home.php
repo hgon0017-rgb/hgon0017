@@ -12,6 +12,12 @@ use Cake\Http\Exception\NotFoundException;
 ?>
 
 <style>
+
+    /* Background colour to match logo */
+    body {
+        background-color: #f9f6f1; /* warm off-white */
+    }
+
     /* Smooth anchor scroll */
     html { scroll-behavior: smooth; }
 
@@ -86,7 +92,7 @@ use Cake\Http\Exception\NotFoundException;
         width: 28px; /* circle size  */
         height: 28px;
         border-radius: 50%; /* make it round  */
-        background: #007bff; /* blue circle  */
+        background: #292929; /* blue circle  */
         color: #fff; /* white text  */
         display: flex;
         align-items: center;
@@ -228,25 +234,72 @@ use Cake\Http\Exception\NotFoundException;
     }
 
 
+    /* --- HERO SLIDESHOW (fixed height + cross-fade) --- */
+    .hero{
+        position: relative;
+        min-height: clamp(400px, 70vh, 820px);  /* ensures the hero is visible */
+        overflow: hidden;
+    }
+
+    /* slides occupy the whole hero */
+    .hero .slides{ position:absolute; inset:0; }
+
+    /* individual slides */
+    .hero .slide{
+        position:absolute; inset:0;
+        background-size: cover;
+        background-position: center;
+        opacity: 0;
+        transition: opacity 900ms ease-in-out;
+    }
+    .hero .slide.is-active{ opacity: 1; }
+
+
+    .hero-content{
+        position:absolute; inset:0;
+        display:flex; align-items:center; justify-content:center;
+        z-index: 2;
+        padding: clamp(12px, 3vw, 32px);
+    }
+
+
+    .hero::after{
+        content:"";
+        position:absolute; inset:0;
+        background: linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,.25));
+        pointer-events:none;
+        z-index:1;                             /* sits above images, below text */
+    }
+
+    /* Section Headings */
+    h2 {
+        font-size: 2rem;        /* bigger */
+        font-weight: 700;       /* bold */
+        color: #222;            /* deep gray */
+        margin-bottom: 1rem;
+        letter-spacing: 0.5px;
+    }
 
 </style>
 
 <!-- HERO -->
 <div class="hero" role="banner" aria-label="Iconic Prints hero">
-    <?= $this->Html->image('printing-banner-3.jpg', [
-        'class' => 'hero-img',
-        'alt'   => 'Large-format printer producing colourful print'
-    ]) ?>
+    <div class="slides" aria-hidden="true">
+        <div class="slide is-active" style="background-image:url('<?= $this->Url->image("printing-banner-3.jpg") ?>');"></div>
+        <div class="slide" style="background-image:url('<?= $this->Url->image("banner-1.jpg") ?>');"></div>
+        <div class="slide" style="background-image:url('<?= $this->Url->image("banner-2.jpg") ?>');"></div>
+        <div class="slide" style="background-image:url('<?= $this->Url->image("banner-3.jpg") ?>');"></div>
+        <div class="slide" style="background-image:url('<?= $this->Url->image("banner-4.jpg") ?>');"></div>
+    </div>
+
     <div class="hero-content">
-        <div class="hero-inner">
-            <!--Products -->
-            <h1 class="hero-title">
-                <a href="#products" title="Jump to products">Iconic Prints</a>
-            </h1>
+        <div class="hero-inner" style="text-align:center; max-width:880px; margin:0 auto;">
+            <h1 class="hero-title"><a href="#products" title="Jump to products">Iconic Prints</a></h1>
             <p class="hero-sub">Flags, banners & signage</p>
         </div>
     </div>
 </div>
+
 
 <section class="container py-4" aria-label="Product lines overview" style="max-width:980px;">
     <p class="lead" style="margin:0;">
@@ -320,12 +373,22 @@ use Cake\Http\Exception\NotFoundException;
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const navLinks = document.querySelectorAll('.nav-left a');
-        navLinks.forEach(link => {
-            if (link.textContent.trim() === 'Products') {
-                link.setAttribute('href', '#products');
-            }
+    document.addEventListener("DOMContentLoaded", function () {
+        const slides = Array.from(document.querySelectorAll(".hero .slide"));
+        if (slides.length < 2) return;
+
+        let i = 0;
+        const INTERVAL = 4000; // 8s; changes timing of the slideshow
+
+        setInterval(() => {
+            slides[i].classList.remove("is-active");
+            i = (i + 1) % slides.length;
+            slides[i].classList.add("is-active");
+        }, INTERVAL);
+
+        // keep your Products link jump
+        document.querySelectorAll('.nav-left a, .nav-right a').forEach(link => {
+            if (link.textContent.trim() === 'Products') link.setAttribute('href', '#products');
         });
     });
 </script>

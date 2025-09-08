@@ -12,82 +12,88 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $email
  * @property string $password
+ * @property string|null $first_name
+ * @property string|null $last_name
+ * @property string|null $avatar
+ * @property string|null $role         // 'customer' | 'admin'
  * @property string|null $nonce
- * @property \Cake\I18n\DateTime|null $nonce_expiry
- * @property \Cake\I18n\DateTime|null $created
- * @property \Cake\I18n\DateTime|null $modified
+ * @property \Cake\I18n\FrozenTime|null $nonce_expiry
+ * @property \Cake\I18n\FrozenTime|null $created
+ * @property \Cake\I18n\FrozenTime|null $modified
+ *
+ * @property string $user_full_display  (virtual)
+ * @property string $full_name          (virtual)
  */
 class User extends Entity
 {
     /**
-     * Fields that can be mass assigned using newEntity() or patchEntity().
+     * Fields that can be mass assigned via newEntity() or patchEntity().
      *
-     * Note that when '*' is set to true, this allows all unspecified fields to
-     * be mass assigned. For security purposes, it is advised to set '*' to false
-     * (or remove it), and explicitly make individual fields accessible as needed.
-     *
-     * @var array<string, bool>
+     * Notes:
+     * - "created" and "modified" are automatically handled by the Timestamp behavior, keep them false.
+     * - Fields that should be editable via forms: email, password, role, nonce, nonce_expiry,
+     *   first_name, last_name, avatar → true
      */
     protected array $_accessible = [
-        'email' => true,
-        'password' => true,
-        'first_name' => true,
-        'last_name' => true,
-        'avatar' => true,
-        'created' => false,
-        'modified' => false,
-        'nonce' => false,
-        'nonce_expiry' => false,
-        'blog_articles' => true,
+        'email'         => true,
+        'password'      => true,
+        'first_name'    => true,
+        'last_name'     => true,
+        'avatar'        => true,
+        'role'          => true,   // ✅ allow role assignment in forms
+        'nonce'         => true,   // ✅ allow write
+        'nonce_expiry'  => true,   // ✅ allow write (datetime-local from form)
+        'created'       => false,  // handled by behavior
+        'modified'      => false,  // handled by behavior
+        'blog_articles' => true,   // can be removed if no association exists
     ];
 
     /**
-     * Fields that are excluded from JSON versions of the entity.
-     *
-     * @var array<string>
+     * Fields excluded from JSON and array outputs.
      */
     protected array $_hidden = [
         'password',
     ];
 
     /**
-     * Generate display field for User entity
-     *
-     * @return string Display field
-     * @see \App\Model\Entity\User::$user_full_display
+     * Virtual fields (optional, but clearer to declare if getters exist).
+     */
+    protected array $_virtual = [
+        'user_full_display',
+        'full_name',
+    ];
+
+    /**
+     * Virtual field: display-friendly full identity (name + email).
      */
     protected function _getUserFullDisplay(): string
     {
-        return $this->first_name . ' ' . $this->last_name . ' (' . $this->email . ')';
+        $first = $this->first_name ?? '';
+        $last  = $this->last_name ?? '';
+        $name  = trim($first . ' ' . $last);
+        return ($name !== '' ? $name : $this->email) . ' (' . $this->email . ')';
     }
 
     /**
-     * Generate Full Name of a user
-     *
-     * @return string Full Name
-     * @see \App\Model\Entity\User::$full_name
+     * Virtual field: full name (first + last).
      */
     protected function _getFullName(): string
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return trim(($this->first_name ?? '') . ' ' . ($this->last_name ?? ''));
     }
 
     /**
-     * Hashing password for User entity
+     * Automatically hash the password when it is set.
      *
-     * @param string $password Password field
-     * @return string|null hashed password
-     * @see \App\Model\Entity\User::$password
+     * - If a non-empty password is provided, hash it before saving.
+     * - If password is empty, keep the original (useful in edit forms when password is not changed).
      */
     protected function _setPassword(string $password): ?string
     {
         if (strlen($password) > 0) {
             return (new DefaultPasswordHasher())->hash($password);
         }
-
+        // Keep original value when empty (edit form does not change password)
         return $password;
     }
 }
-
-
-

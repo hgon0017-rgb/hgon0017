@@ -74,7 +74,7 @@ hr {
     display: none;
 }
 
-/* Products grid: match the side padding of .howitworks and cap overall width */
+/* Product grid: match the side padding of .howitworks and cap overall width */
 .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(260px, 1fr)); /* tighter cards */
@@ -96,5 +96,23 @@ hr {
 @media (max-width: 700px) {
     .grid { grid-template-columns: 1fr; }
 }
+
+.navbar {
+    display: flex;
+    justify-content: space-between; /* logo on left, links on right */
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-right a {
+    margin-left: 20px; /* spacing between links */
+    color: #fff;       /* keep links visible against dark background */
+    text-decoration: none;
+}
+
+.nav-right a:hover {
+    color: #ffeb3b; /* optional: yellow hover effect */
+}
+
 
 

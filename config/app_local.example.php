@@ -47,10 +47,10 @@ return [
              */
             //'port' => 'non_standard_port_number',
 
-            'username' => 'my_app',
-            'password' => 'secret',
+            'username' => 'iconic_admin',
+            'password' => 'password',
 
-            'database' => 'my_app',
+            'database' => 'iconic_prints_admin',
             /*
              * If not using the default 'public' schema with the PostgreSQL driver
              * set it here.
