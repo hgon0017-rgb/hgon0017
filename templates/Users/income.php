@@ -8,7 +8,7 @@
 
 // Sidebar links
 $incomeUrl   = $this->Url->build(['controller' => 'Users', 'action' => 'income']);   // current
-$productsUrl = $this->Url->build(['controller' => 'Users', 'action' => 'products']);
+$productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'add']);
 $usersUrl    = $this->Url->build(['controller' => 'Users', 'action' => 'index']);
 
 // (Optional) Static demo numbers — replace with real data from controller if you have them

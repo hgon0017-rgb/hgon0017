@@ -22,52 +22,62 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         /* === Fix blank space under footer === */
         html, body {
             height: 100%;
-            margin: 0;        /* remove default body margin */
+            margin: 0;
             padding: 0;
         }
 
         body {
-            display: flex;            /* vertical layout: header, main, footer */
+            display: flex;
             flex-direction: column;
-            min-height: 100vh;        /* always at least viewport height */
+            min-height: 100vh;
         }
 
         main.main {
-            flex: 1 0 auto;           /* main grows to fill space */
+            flex: 1 0 auto;
         }
 
         .site-footer {
-            margin-top: auto;         /* push footer to bottom */
+            margin-top: auto;
             flex-shrink: 0;
         }
-        /* Make the logo look clickable and add a subtle hover effect */
+
+        /* Logo hover effect */
         .logo-link img {
-            cursor: pointer; /* Change cursor to indicate clickability */
-            transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth animation */
+            cursor: pointer;
+            transition: transform 0.2s ease, opacity 0.2s ease;
         }
         .logo-link img:hover {
-            transform: scale(1.05); /* Slight zoom effect on hover */
-            opacity: 0.9; /* Slight dimming to indicate hover */
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        /* Optional style for cart link */
+        .cart-link {
+            position: relative;
+        }
+        .cart-link .badge {
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            background: red;
+            color: white;
+            font-size: 11px;
+            padding: 2px 5px;
+            border-radius: 50%;
         }
     </style>
-
 </head>
 <body>
 
 <header class="navbar">
     <div class="nav-left">
         <?= $this->Html->link(
-        // Render the site logo as a clickable link
             $this->Html->image('Iconic-Prints-Logo.png', [
-                'alt' => 'Iconic Prints Logo',  // Alternative text for accessibility
-                'class' => 'site-logo'          // CSS class for styling
+                'alt' => 'Iconic Prints Logo',
+                'class' => 'site-logo'
             ]),
-            // Target route: Pages controller, display action, "home" view
             ['controller' => 'Pages', 'action' => 'display', 'home'],
-            [
-                'escape' => false,   // Allow image HTML to be rendered inside the link
-                'class' => 'logo-link' // Additional class for styling and hover effects
-            ]
+            ['escape' => false, 'class' => 'logo-link']
         ) ?>
     </div>
 
@@ -94,30 +104,32 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 #loginBtn {
                     display:inline-block;
                     padding:8px 18px;
-                    border:2px solid #fff;   /* white border */
+                    border:2px solid #fff;
                     border-radius:6px;
                     background:transparent;
-                    color:#fff;              /* white text */
+                    color:#fff;
                     text-decoration:none;
                     font-weight:600;
                     font-size:14px;
                     transition: all 0.3s ease;
                 }
-
                 #loginBtn:hover {
-                    background:#fff;   /* white fill on hover */
-                    color:#000;        /* black text */
+                    background:#fff;
+                    color:#000;
                     transform:translateY(-2px);
                     box-shadow:0 4px 8px rgba(0,0,0,0.2);
                 }
             </style>
-
         <?php endif; ?>
-        <a href="#">Cart 🛒</a>
+
+        <!-- Cart link -->
+        <?= $this->Html->link(
+            'Cart 🛒',
+            ['controller' => 'Pages', 'action' => 'display', 'cart'],
+            ['escape' => false, 'class' => 'cart-link']
+        ) ?>
     </div>
 </header>
-
-<!--Footer-->
 
 <main class="main">
     <?= $this->Flash->render() ?>
@@ -169,8 +181,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </address>
     </div>
 </footer>
-
-
 
 </body>
 </html>
