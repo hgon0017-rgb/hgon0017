@@ -160,7 +160,10 @@ $this->assign('title', 'Contact Us');
         <section class="contact-card" aria-label="Enquiry form">
             <h3>Get in touch</h3>
 
-            <?= $this->Form->create($contactU) ?>
+            <?= $this->Form->create($contactU, [
+                'id' => 'contact-form',
+                'unlockedFields' => ['g-recaptcha-response']
+            ]) ?>
             <?= $this->Form->control('full_name', [
                 'label' => 'Your Name',
                 'placeholder' => 'John Appleseed'
@@ -177,10 +180,11 @@ $this->assign('title', 'Contact Us');
                 'required' => false
             ]) ?>
 
-            <?= $this->Form->control('body', [
+            <?= $this->Form->control('description', [
                 'label' => 'Message',
                 'type' => 'textarea',
-                'placeholder' => 'How can we help?'
+                'placeholder' => 'How can we help?',
+                'required' => true
             ]) ?>
 
             <label class="checkbox">

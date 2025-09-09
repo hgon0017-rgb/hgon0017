@@ -7,6 +7,7 @@ use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Client;
 use Cake\Mailer\Mailer;
+use Cake\Log\Log;
 
 /**
  * ContactUs Controller
@@ -80,35 +81,46 @@ class ContactUsController extends AppController
 // --- end reCAPTCHA ---
 
             $contactU = $this->ContactUs->patchEntity($contactU, $this->request->getData());
-            if ($this->ContactUs->save($contactU)) {
-                //send email
-                $mailer = new Mailer('default');
-                // set up email params
-                $mailer
-                    ->setEmailFormat('html')
-                    ->setSubject('New enquiry received')
-                    ->setTo(Configure::read('EnquiryMailer.to'))
-                    ->setFrom(Configure::read('EnquiryMailer.from'))
-                    ->viewBuilder()
-                    ->setTemplate('contact');
 
-                //send data to email template
-                $mailer->setViewVars([
-                    'content'   => $contactU->body,
-                    'full_name' => $contactU->full_name,
-                    'email'     => $contactU->email,
-                    'created'   => $contactU->created,
-                    'id'        => $contactU->id,
-                ]);
-                //send email
-                $email_result = $mailer->deliver();
+            if ($this->ContactUs->save($contactU)) {
+                // send email (with safe fallbacks)
+                $to   = Configure::read('EnquiryMailer.to');
+                $from = Configure::read('EnquiryMailer.from') ?: Configure::read('Email.default.from');
+
+                if ($to) {
+                    $mailer = new Mailer('default');
+                    $mailer->setEmailFormat('html')
+                        ->setSubject('New enquiry received')
+                        ->setTo($to)
+                        ->setFrom($from)
+                        ->setReplyTo([$contactU->email => $contactU->full_name ?: null])
+                        ->viewBuilder()->setTemplate('contact');
+
+                    $mailer->setViewVars([
+                        'content'   => $contactU->description,
+                        'full_name' => $contactU->full_name,
+                        'email'     => $contactU->email,
+                        'created'   => $contactU->created,
+                        'id'        => $contactU->id,
+                    ]);
+
+                    try {
+                        $mailer->deliver();
+                    } catch (\Throwable $e) {
+                        Log::error('Mailer deliver failed: ' . $e->getMessage());
+                    }
+                } else {
+                    Log::error('EnquiryMailer.to is not configured.');
+                }
 
                 $this->Flash->success(__('The enquiry has been saved.'));
-                //redirects users to home page after submission instead of the view page
                 return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
             }
+
+            Log::debug('ContactUs save errors: ' . json_encode($contactU->getErrors(), JSON_UNESCAPED_SLASHES));
             $this->Flash->error(__('The enquiry could not be saved. Please, try again.'));
         }
+
         $this->set(compact('contactU'));
     }
 
