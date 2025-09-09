@@ -16,20 +16,23 @@ class UsersController extends AppController
     /**
      * beforeFilter
      */
-    public function beforeFilter(EventInterface $event)
+    public function beforeFilter(EventInterface|\App\Controller\EventInterface $event): void
     {
         parent::beforeFilter($event);
 
-        //AuthorizationRequiredException
+        // AuthorizationRequiredException
         $this->Authorization->skipAuthorization();
 
         // if user is customer intercept and jump
         $identity = $this->request->getAttribute('identity');
-        if ($identity && $identity->get('role') == 'customer') {
+        if ($identity && $identity->get('role') === 'customer') {
             $adminActions = ['index', 'view', 'add', 'edit', 'delete'];
-            $action = $this->request->getParam('action');
+            $action = (string)$this->request->getParam('action');
+
             if (in_array($action, $adminActions, true)) {
-                return $this->redirect(['controller' => 'Account', 'action' => 'dashboard']);
+                // Do NOT "return" a Response from an event listener in Cake 5.2+
+                $event->setResult($this->redirect(['controller' => 'Account', 'action' => 'dashboard']));
+                $event->stopPropagation();
             }
         }
     }
