@@ -282,6 +282,9 @@ use Cake\Http\Exception\NotFoundException;
 
 </style>
 
+<?= $this->Flash->render('modal') ?>
+
+
 <!-- HERO -->
 <div class="hero" role="banner" aria-label="Iconic Prints hero">
     <div class="slides" aria-hidden="true">
@@ -392,3 +395,5 @@ use Cake\Http\Exception\NotFoundException;
         });
     });
 </script>
+
+<?= $this->Flash->render('modal') ?>

@@ -67,6 +67,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         }
     </style>
 </head>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 <body>
 
 <header class="navbar">
@@ -132,9 +135,12 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 </header>
 
 <main class="main">
-    <?= $this->Flash->render() ?>
+    <?= $this->Flash->render('modal') ?>   <!-- only our popup -->
     <?= $this->fetch('content') ?>
 </main>
+
+
+
 
 <footer class="site-footer" role="contentinfo">
     <div class="site-footer-inner">
