@@ -2,10 +2,11 @@
 declare(strict_types=1);
 
 namespace App\Controller;
-use Cake\Core\Configure;
-use Cake\Mailer\Mailer;
-use Cake\Http\Client;
 
+use Cake\Core\Configure;
+use Cake\Event\EventInterface;
+use Cake\Http\Client;
+use Cake\Mailer\Mailer;
 
 /**
  * ContactUs Controller
@@ -14,15 +15,15 @@ use Cake\Http\Client;
  */
 class ContactUsController extends AppController
 {
-    public function beforeFilter(\Cake\Event\EventInterface $event)
+    public function beforeFilter(EventInterface|\App\Controller\EventInterface $event): void
     {
         parent::beforeFilter($event);
 
         // Allow the homepage/landing page
         $this->Authentication->addUnauthenticatedActions(['add']);
         $this->Authorization->skipAuthorization();
-
     }
+
     /**
      * Index method
      *
@@ -43,7 +44,7 @@ class ContactUsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view(?string $id = null)
     {
         $contactU = $this->ContactUs->get($id, contain: []);
         $this->set(compact('contactU'));
@@ -59,12 +60,11 @@ class ContactUsController extends AppController
         $this->Authorization->skipAuthorization();
         $contactU = $this->ContactUs->newEmptyEntity();
         if ($this->request->is('post')) {
-
             // --- reCAPTCHA verify (keep everything else as-is) ---
             $token  = (string)$this->request->getData('g-recaptcha-response');
-            $secret = (string)\Cake\Core\Configure::read('Recaptcha.secret');
+            $secret = (string)Configure::read('Recaptcha.secret');
 
-            $http = new \Cake\Http\Client();
+            $http = new Client();
             $resp = $http->post('https://www.google.com/recaptcha/api/siteverify', [
                 'secret'   => $secret,
                 'response' => $token,
@@ -74,6 +74,7 @@ class ContactUsController extends AppController
 
             if (empty($data['success'])) {
                 $this->Flash->error(__('Please verify you are not a robot.'));
+
                 return $this->redirect($this->referer());
             }
 // --- end reCAPTCHA ---
@@ -97,7 +98,7 @@ class ContactUsController extends AppController
                     'full_name' => $contactU->full_name,
                     'email'     => $contactU->email,
                     'created'   => $contactU->created,
-                    'id'        => $contactU->id
+                    'id'        => $contactU->id,
                 ]);
                 //send email
                 $email_result = $mailer->deliver();
@@ -105,7 +106,6 @@ class ContactUsController extends AppController
                 $this->Flash->success(__('The enquiry has been saved.'));
                 //redirects users to home page after submission instead of the view page
                 return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
-
             }
             $this->Flash->error(__('The enquiry could not be saved. Please, try again.'));
         }
@@ -119,19 +119,20 @@ class ContactUsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function mark($id = null)
+    public function mark(?string $id = null)
     {
         $contactU = $this->ContactUs->get($id);
         if ($contactU->email_sent) {
             $this->Flash->error(__('This enquiry is already marked as sent.'));
-        }else{
+        } else {
             $contactU->email_sent = true;
-            if($this->ContactUs->save($contactU)){
+            if ($this->ContactUs->save($contactU)) {
                 $this->Flash->success(__('The enquiry has been saved.'));
-            }else{
+            } else {
                 $this->Flash->error(__('The enquiry could not be saved. Please, try again.'));
             }
         }
+
         return $this->redirect(['action' => 'index']);
     }
 
@@ -142,7 +143,7 @@ class ContactUsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete(?string $id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
         $contactU = $this->ContactUs->get($id);

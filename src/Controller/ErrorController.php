@@ -41,7 +41,7 @@ class ErrorController extends AppController
      * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event Event.
      * @return void
      */
-    public function beforeFilter(EventInterface $event): void
+    public function beforeFilter(EventInterface|\App\Controller\EventInterface $event): void
     {
     }
 
