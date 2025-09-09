@@ -114,7 +114,7 @@ class ContactUsController extends AppController
                 }
 
                 $this->Flash->success(__('The enquiry has been saved.'));
-                return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
+                return $this->redirect(['controller' => 'ContactUs', 'action' => 'add']);
             }
 
             Log::debug('ContactUs save errors: ' . json_encode($contactU->getErrors(), JSON_UNESCAPED_SLASHES));
