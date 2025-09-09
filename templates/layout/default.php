@@ -88,7 +88,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->link('Home', '/', []) ?>
         <a href="<?= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'about']) ?>">About</a>
         <a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']) ?>">Products</a>
-<!--        <a href="--><?php //= $this->Url->build(['controller' => 'Pages', 'action' => 'display', 'help']) ?><!--">Help</a>-->
 
         <?php if ($this->Identity->isLoggedIn()): ?>
             <a href="<?= $this->Url->build(['controller' => 'Users', 'action' => 'index']) ?>">Dashboard</a>

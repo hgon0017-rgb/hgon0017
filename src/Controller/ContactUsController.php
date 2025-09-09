@@ -113,12 +113,8 @@ class ContactUsController extends AppController
                     Log::error('EnquiryMailer.to is not configured.');
                 }
 
-                $this->Flash->success(
-                    __('Thanks! Your enquiry was sent.'),
-                    ['key' => 'modal', 'element' => 'flash/modal']
-                );
-                return $this->redirect(['controller' => 'Pages', 'action' => 'display', 'home']);
-
+                $this->Flash->success(__('The enquiry has been saved.'));
+                return $this->redirect(['controller' => 'ContactUs', 'action' => 'add']);
             }
 
             Log::debug('ContactUs save errors: ' . json_encode($contactU->getErrors(), JSON_UNESCAPED_SLASHES));
