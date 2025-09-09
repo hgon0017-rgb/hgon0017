@@ -1,54 +1,50 @@
 <?php
 /**
  * templates/Pages/cart.php
- * Cart page that accepts GET params from Products page and merges into a temp cart.
- *
- * Expected query params:
- *   /pages/cart?id=1&name=Custom%20Flag&price=29.99&image=flags-custom.jpg&qty=2
  */
-
 $this->assign('title', 'Shopping Cart');
 
-/* ---------------------------------------------------------
- | 1) Base temp cart (demo). Replace with Session/DB in real app
- * --------------------------------------------------------- */
-$cartItems = [
-    ['id'=>1,'name'=>'Custom Flag','image'=>'flags-custom.jpg','price'=>29.99,'qty'=>2],
-    ['id'=>2,'name'=>'Corporate Banner','image'=>'printing-banner-3.jpg','price'=>35.00,'qty'=>1],
-];
-
-/* ---------------------------------------------------------
- | 2) Read incoming params & merge into cart
- * --------------------------------------------------------- */
 $req     = $this->getRequest();
-$addId   = (int) ($req->getQuery('id') ?? 0);
-$addName = trim((string) ($req->getQuery('name') ?? ''));
-$addImg  = trim((string) ($req->getQuery('image') ?? ''));
-$addQty  = max(1, (int) ($req->getQuery('qty') ?? 0));
-$addPrice= (float) ($req->getQuery('price') ?? 0);
+$session = $req->getSession();
+$cartItems = (array)$session->read('Cart.items');
+if (!$cartItems) {
+    $cartItems = [
+        ['id'=>1,'name'=>'Custom Flag','image'=>'flags-custom.jpg','price'=>29.99,'qty'=>2],
+        ['id'=>2,'name'=>'Corporate Banner','image'=>'printing-banner-3.jpg','price'=>35.00,'qty'=>1],
+    ];
+    $session->write('Cart.items', $cartItems);
+}
+$changed = false;
 
-/* Optional: quick remove by query ?remove=ID (for demo only) */
 $removeId = (int) ($req->getQuery('remove') ?? 0);
 if ($removeId > 0) {
+    $before = count($cartItems);
     $cartItems = array_values(array_filter($cartItems, fn($i) => (int)$i['id'] !== $removeId));
+    if (count($cartItems) !== $before) {
+        $changed = true;
+    }
 }
 
-/* If we have required add-to-cart fields, merge/add */
+$addId    = (int) ($req->getQuery('id') ?? 0);
+$addName  = trim((string) ($req->getQuery('name') ?? ''));
+$addImg   = trim((string) ($req->getQuery('image') ?? ''));
+$addQty   = max(1, (int) ($req->getQuery('qty') ?? 0));
+$addPrice = (float) ($req->getQuery('price') ?? 0);
+
 if ($addId > 0 && $addName !== '' && $addPrice > 0 && $addQty > 0) {
     $found = false;
     foreach ($cartItems as &$row) {
         if ((int)$row['id'] === $addId) {
-            $row['qty'] += $addQty;  // merge qty
+            $row['qty'] += $addQty;
             $found = true;
+            $changed = true;
             break;
         }
     }
     unset($row);
 
     if (!$found) {
-        // Fallback image if missing
         if ($addImg === '') {
-            // simple fallback by id or a default
             $images = [
                 1=>'flags-custom.jpg', 2=>'flags-corporate.jpg', 3=>'flags-national.jpg',
                 4=>'Iconic Prints.png', 5=>'printing-banner-3.jpg', 6=>'printing-banner-4.jpg',
@@ -63,19 +59,19 @@ if ($addId > 0 && $addName !== '' && $addPrice > 0 && $addQty > 0) {
             'price' => $addPrice,
             'qty'   => $addQty,
         ];
+        $changed = true;
     }
 }
+if ($changed) {
+    $session->write('Cart.items', $cartItems);
+}
 
-/* ---------------------------------------------------------
- | 3) Totals
- * --------------------------------------------------------- */
-$subtotal = 0;
-foreach ($cartItems as $i) { $subtotal += $i['price'] * $i['qty']; }
-$shipping = $subtotal > 60 ? 0 : 7.90;
+$subtotal = 0.0;
+foreach ($cartItems as $i) { $subtotal += (float)$i['price'] * (int)$i['qty']; }
+$shipping = $subtotal > 60 ? 0.00 : 7.90;
 $discount = 0.00;
 $total    = max(0, $subtotal - $discount + $shipping);
 ?>
-
 <style>
     /* -------- Layout -------- */
     .cart-wrap{max-width:1200px;margin:20px auto;padding:0 16px;}
@@ -200,7 +196,10 @@ $total    = max(0, $subtotal - $discount + $shipping);
                                 <td class="price">A$<?= number_format($it['price'] * $it['qty'],2) ?></td>
                                 <td>
                                     <!-- simple remove by query ?remove=ID -->
-                                    <a class="btn btn-danger" href="<?= $this->Url->build('/pages/cart?remove='.(int)$it['id']) ?>">Remove</a>
+                                    <a class="btn btn-danger"
+                                       href="<?= $this->Url->build(['controller'=>'Pages','action'=>'display','cart','?' => ['remove' => (int)$it['id']]]) ?>">
+                                        Remove
+                                    </a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
