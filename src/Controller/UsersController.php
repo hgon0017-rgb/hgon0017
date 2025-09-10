@@ -158,6 +158,8 @@ class UsersController extends AppController
         $this->request->allowMethod(['get', 'post']);
 
         $result = $this->Authentication->getResult();
+        $session = $this->request->getSession();
+        $session->delete('Cart');
 
         if ($result && $result->isValid()) {
             $identity = $this->Authentication->getIdentity();
@@ -183,13 +185,15 @@ class UsersController extends AppController
         $this->request->allowMethod(['get', 'post']);
 
         $this->Authentication->logout();
+        $session = $this->request->getSession();
+        $session->delete('Cart');
         return $this->redirect(['action' => 'login']);
     }
-    // src/Controller/UsersController.php
+
     public function income()
     {
         // $this->set(compact('metrics'));
-        $this->viewBuilder()->setTemplate('income'); //templates/Users/income.php
+        $this->viewBuilder()->setTemplate('income');
     }
 
 }
