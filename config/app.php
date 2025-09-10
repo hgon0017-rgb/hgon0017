@@ -455,4 +455,14 @@ return [
         'errorLevel' => null,
         'fixtureStrategy' => null,
     ],
+
+    'Session' => [
+        'defaults' => 'php',
+        'timeout' => 10,
+        'ini' => [
+            'session.gc_maxlifetime' => 600,
+            'session.cookie_lifetime' => 600,
+        ]
+    ],
+
 ];
