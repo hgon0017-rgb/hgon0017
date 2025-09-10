@@ -165,7 +165,8 @@ $total    = max(0, $subtotal - $discount + $shipping);
                                 <td>
                                     <div class="prod">
                                         <div class="thumb">
-                                            <?= $this->Html->image('img/' . h($it['image']), ['alt'=>$it['name']]) ?>
+                                            <?= $this->Html->image(h($it['image']), ['alt' => $it['name']]) ?>
+
                                         </div>
                                         <div>
                                             <div style="font-weight:600"><?= h($it['name']) ?></div>
@@ -175,7 +176,8 @@ $total    = max(0, $subtotal - $discount + $shipping);
                                 </td>
                                 <td>
                                     <div class="thumb" style="width:60px;height:60px">
-                                        <?= $this->Html->image('img/' . h($it['image']), ['alt'=>$it['name']]) ?>
+                                        <?= $this->Html->image(h($it['image']), ['alt' => $it['name']]) ?>
+
                                     </div>
                                 </td>
                                 <td class="price">A$<?= number_format($it['price'],2) ?></td>

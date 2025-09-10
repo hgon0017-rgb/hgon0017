@@ -82,7 +82,11 @@ $this->assign('title', 'Product Showcase');
                 <div class="sale-badge"><?= h($p->discount) ?>% off</div>
             <?php endif; ?>
 
-            <?= $this->Html->image('img/' . h($p->image_path), ['alt' => $p->name]) ?>
+            <?= $this->Html->image($p->image_path, [
+                'alt' => $p->name,
+                'class' => 'product-img'
+            ]) ?>
+
 
             <div class="product-info">
                 <div class="product-title"><?= h($p->name) ?></div>
