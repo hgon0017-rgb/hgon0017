@@ -131,8 +131,8 @@
     <section class="about-design">
         <div class="about-design__wrap">
             <div class="about-design__media">
-                <?= $this->Html->image('pexels-fotios-photos-11073660.jpg', [
-                    'alt' => 'Cyanotype floral print'
+                <?= $this->Html->image('aboutimage.jpg', [
+                    'alt' => 'woman holding iamge'
                 ]) ?>
             </div>
             <div class="about-design__text">
