@@ -33,27 +33,12 @@ class ProductsController extends AppController
     {
         $this->Authorization->skipAuthorization();
 
-        // Read sort + direction from query (default to pricing ASC)
-        $sort      = $this->request->getQuery('sort', 'pricing');
-        $direction = strtolower($this->request->getQuery('direction', 'asc'));
-
-        if (!in_array($direction, ['asc','desc'], true)) {
-            $direction = 'asc';
-        }
-
-        // Tell the paginator which fields may be sorted from the URL
-        $this->paginate = [
-            'order' => [$sort => $direction],
-            // CakePHP 4:
-            'sortableFields' => ['name', 'pricing', 'category', 'stock', 'discount'],
-            'limit' => 12
-        ];
-
+        // Always start with a query from DB
         $query = $this->Products->find();
         $products = $this->paginate($query);
-
-        $this->set(compact('products', 'sort', 'direction'));
+        $this->set(compact('products'));
     }
+
 
     /**
      * View method
@@ -82,7 +67,6 @@ class ProductsController extends AppController
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($this->Products->save($product)) {
                 $this->Flash->success(__('The product has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The product could not be saved. Please, try again.'));
