@@ -7,13 +7,6 @@ $this->assign('title', 'Shopping Cart');
 $req     = $this->getRequest();
 $session = $req->getSession();
 $cartItems = (array)$session->read('Cart.items');
-if (!$cartItems) {
-    $cartItems = [
-        ['id'=>1,'name'=>'Custom Flag','image'=>'flags-custom.jpg','price'=>29.99,'qty'=>2],
-        ['id'=>2,'name'=>'Corporate Banner','image'=>'printing-banner-3.jpg','price'=>35.00,'qty'=>1],
-    ];
-    $session->write('Cart.items', $cartItems);
-}
 $changed = false;
 
 $removeId = (int) ($req->getQuery('remove') ?? 0);
