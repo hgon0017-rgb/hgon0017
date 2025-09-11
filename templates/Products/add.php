@@ -9,7 +9,7 @@
  */
 
 // Sidebar URLs
-$incomeUrl   = $this->Url->build(['controller' => 'Users', 'action' => 'income']);
+//$incomeUrl   = $this->Url->build(['controller' => 'Users', 'action' => 'income']);
 $usersUrl    = $this->Url->build(['controller' => 'Users', 'action' => 'index']);
 $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'index']);
 ?>
@@ -82,7 +82,7 @@ $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'index
     <aside class="sidebar">
         <h4>Admin</h4>
         <ul class="nav-list">
-            <li><a class="nav-link" href="<?= $incomeUrl ?>">💰 Income</a></li>
+<!--            <li><a class="nav-link" href="--><?php //= $incomeUrl ?><!--">💰 Income</a></li>-->
             <li><a class="nav-link active" href="<?= $productsUrl ?>">🛒 Products</a></li>
             <li><a class="nav-link" href="<?= $usersUrl ?>">👥 Users</a></li>
         </ul>

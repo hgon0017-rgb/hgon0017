@@ -12,11 +12,11 @@ $trackOrderUrl   = $this->Url->build(['controller' => 'Account', 'action' => 'tr
 $myListsUrl      = $this->Url->build(['controller' => 'Account', 'action' => 'lists']);
 
 // ====== Stats & Progress Data (replace with dynamic values) ======
-$accountBalance   = 46760.89;                            // Example: account balance
-$favoriteProducts = (int)($this->Identity?->get('favorites_count') ?? 8); // Example: favorite products count
+$accountBalance   = 0;                            // Example: account balance
+$favoriteProducts = (int)($this->Identity?->get('favorites_count') ?? 0); // Example: favorite products count
 $target           = 100.0;                               // Spending target
 $couponValue      = 10.0;                                // Coupon value
-$spent            = (float)($this->Identity?->get('lifetime_spend') ?? 60.0); // Example: already spent
+$spent            = (float)($this->Identity?->get('lifetime_spend') ?? 0.0);
 $spent            = max(0, $spent);
 $percent          = (int)min(100, round(($target > 0 ? ($spent / $target) * 100 : 0)));
 $leftAmount       = max(0.0, $target - $spent);

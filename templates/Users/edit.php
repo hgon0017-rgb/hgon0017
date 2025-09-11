@@ -70,7 +70,7 @@ if (!empty($user->nonce_expiry)) {
                     <div class="field-help">We’ll never share your email.</div>
                 </div>
 
-                <!-- Password（不回显旧值） -->
+                <!-- Password-->
                 <div class="form-field password-wrap">
                     <?= $this->Form->label('password', 'Password') ?>
                     <?= $this->Form->control('password', [
