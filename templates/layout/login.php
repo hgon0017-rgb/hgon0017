@@ -14,9 +14,24 @@
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
-</head>
-<body class="bg-light d-flex align-items-center justify-content-center vh-100">
 
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* full background image */
+            background: url("<?= $this->Url->image('pexels-christopher-gawel-23527-955617.jpg') ?>")
+            no-repeat center center fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center vh-100">
 
 <?= $this->fetch('content') ?>
 
@@ -25,4 +40,5 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 

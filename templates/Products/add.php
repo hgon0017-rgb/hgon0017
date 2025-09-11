@@ -98,7 +98,8 @@ $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'index
             </div>
 
             <!-- Add Product Form -->
-            <?= $this->Form->create($product, ['class' => 'product-form']) ?>
+            <?= $this->Form->create($product, ['class' => 'product-form', 'type' => 'file']) ?>
+
 
             <div class="form-grid">
 
@@ -173,14 +174,15 @@ $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'index
                     ]) ?>
                 </div>
 
-                <!-- Image Path -->
+                <!-- Image upload -->
                 <div>
                     <label class="form-label">Image Path</label>
-                    <?= $this->Form->control('image_path', [
+                    <?= $this->Form->control('image', [
+                        'type' => 'file',
                         'label' => false,
-                        'class' => 'form-input',
-                        'placeholder' => 'e.g. product.jpg (in /webroot/img/)'
+                        'class' => 'form-input'
                     ]) ?>
+
                 </div>
             </div>
 
@@ -194,4 +196,5 @@ $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'index
         </div>
     </main>
 </div>
+
 
