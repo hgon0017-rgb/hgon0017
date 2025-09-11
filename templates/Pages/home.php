@@ -297,7 +297,7 @@ use Cake\Http\Exception\NotFoundException;
 
     <div class="hero-content">
         <div class="hero-inner" style="text-align:center; max-width:880px; margin:0 auto;">
-            <h1 class="hero-title"><a href="/products" title="Jump to products">Iconic Prints</a></h1>
+            <h1 class="hero-title"><a href="#products" title="Jump to products">Iconic Prints</a></h1>
             <p class="hero-sub">Flags, banners & signage</p>
         </div>
     </div>

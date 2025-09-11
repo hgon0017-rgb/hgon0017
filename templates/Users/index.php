@@ -7,7 +7,7 @@
  */
 
 // Sidebar links
-$incomeUrl   = $this->Url->build(['controller' => 'Users', 'action' => 'income']);   // ✅ users/income
+//$incomeUrl   = $this->Url->build(['controller' => 'Users', 'action' => 'income']);   // ✅ users/income
 $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'add']); // ✅ users/products
 $usersUrl    = $this->Url->build(['controller' => 'Users', 'action' => 'index']);
 ?>
@@ -36,7 +36,7 @@ $usersUrl    = $this->Url->build(['controller' => 'Users', 'action' => 'index'])
     <aside class="sidebar">
         <h4>Admin</h4>
         <ul class="nav-list">
-            <li><a class="nav-link" href="<?= $incomeUrl ?>">💰 Income</a></li>
+<!--            <li><a class="nav-link" href="--><?php //= $incomeUrl ?><!--">💰 Income</a></li>-->
             <li><a class="nav-link" href="<?= $productsUrl ?>">🛒 Products</a></li>
             <li><a class="nav-link active" href="<?= $usersUrl ?>">👥 Users</a></li>
         </ul>
