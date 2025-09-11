@@ -6,8 +6,7 @@
 $this->assign('title', 'Order history');
 $orders = $orders ?? [
     // just for example
-    ['id'=>1,'order_no'=>1,'date'=>'2025-09-01','items_count'=>null,'total'=>null,'status'=>'Shipped'],
-    ['id'=>2,'order_no'=>2,'date'=>'2025-09-02','items_count'=>null,'total'=>null,'status'=>'Processing'],
+
 ];
 ?>
 <style>

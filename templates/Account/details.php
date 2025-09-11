@@ -54,15 +54,7 @@ $this->assign('title', 'Edit details');
                         <div class="help">Leave blank to keep current password.</div>
                     </div>
 
-                    <div>
-                        <label>Role</label>
-                        <?= $this->Form->control('role',[
-                            'label'=>false,'type'=>'select',
-                            'options'=>['customer'=>'Customer','admin'=>'Admin']
-                        ]) ?>
-                        <div class="help">Only admin can access the admin panel.</div>
-                    </div>
-                </div>
+
 
                 <div class="actions">
                     <?= $this->Form->button('Save changes',['class'=>'acc-btn acc-btn-primary']) ?>
