@@ -203,7 +203,6 @@ $total    = max(0, $subtotal - $discount + $shipping);
 
                     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px">
                         <?= $this->Html->link('← Continue Shopping', ['controller'=>'Products','action'=>'index'], ['class'=>'btn btn-ghost']) ?>
-                        <a class="btn btn-dark" href="#" title="Demo only">Update Cart</a>
                     </div>
                 </div>
             </div>
@@ -231,5 +230,6 @@ $total    = max(0, $subtotal - $discount + $shipping);
                 </div>
             </div>
         </div>
+
     <?php endif; ?>
 </div>

@@ -44,13 +44,6 @@ class UsersController extends AppController
     {
         $this->Authorization->skipAuthorization();
 
-        $this->paginate = [
-            'order' => [
-                'Users.created'  => 'desc',
-                'Users.modified' => 'desc',
-            ],
-        ];
-
         $users = $this->paginate($this->Users);
         $this->set(compact('users'));
     }

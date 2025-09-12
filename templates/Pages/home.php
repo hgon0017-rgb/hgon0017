@@ -391,9 +391,9 @@ use Cake\Http\Exception\NotFoundException;
         }, INTERVAL);
 
         // keep your Products link jump
-        document.querySelectorAll('.nav-left a, .nav-right a').forEach(link => {
-            if (link.textContent.trim() === 'Products') link.setAttribute('href', '#products');
-        });
+        // document.querySelectorAll('.nav-left a, .nav-right a').forEach(link => {
+        //     if (link.textContent.trim() === 'Products') link.setAttribute('href', '/products');
+        // });
     });
 </script>
 

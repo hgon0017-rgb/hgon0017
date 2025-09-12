@@ -18,10 +18,6 @@
                     <th><?= __('Created') ?></th>
                     <td><?= h($contactU->created->i18nFormat(null, 'Australia/Melbourne')) ?></td>
                 </tr>
-                <tr>
-                    <th><?= __('Email Sent') ?></th>
-                    <td><?= $contactU->email_sent ? __('Yes') : __('No'); ?></td>
-                </tr>
             </table>
             <div class="text">
                 <strong><?= __('Description') ?></strong>
