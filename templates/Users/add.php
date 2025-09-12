@@ -1,143 +1,146 @@
 <?php
 /**
+ * Users Add (Admin UI same scale as Users index / Products dashboard)
+ *
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User $user
  */
 $this->assign('title', 'Add User');
+
+$productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'dashboard']);
+$usersUrl    = $this->Url->build(['controller' => 'Users',    'action' => 'index']);
+$contactsUrl = $this->Url->build(['controller' => 'ContactUs','action' => 'index']);
 ?>
 
 <style>
-    :root{
-        --bg:#f6f7fb; --card:#fff; --ring:#e9e9ee; --muted:#6b7280; --text:#111827;
-        --primary:#000; --primary-2:#222; --ok:#16a34a; --danger:#dc2626;
+    /* === Same scale as users index === */
+    .admin-shell { display:grid; grid-template-columns:220px 1fr; gap:20px; max-width:1400px; margin:0 auto; padding:20px; }
+    .sidebar { background:#f8fafc; border:1px solid #e5e7eb; border-radius:12px; padding:14px; }
+    .sidebar h4 { margin:6px 10px 12px; font-size:18px; }
+    .nav-list{ list-style:none; padding:0; margin:0; }
+    .nav-list li{ margin:4px 0; }
+    .nav-link{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; text-decoration:none;
+        color:#111827; background:#fff; border:1px solid #e5e7eb; }
+    .nav-link.active{ background:#e9efff; border-color:#c7d2fe; font-weight:700; }
+
+    .content-card{ background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:18px; }
+    .btn { display:inline-block; padding:8px 12px; border-radius:6px; font-size:13px; text-decoration:none; margin-left:6px; }
+    .btn-dark { background:#333; color:#fff; }
+    .btn-grey { background:#555; color:#fff; }
+    .btn-danger { background:#c00; color:#fff; }
+
+    form .input { margin-bottom:14px; }
+    label { font-weight:600; display:block; margin-bottom:6px; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], select, textarea {
+        width:100%; padding:8px 10px; border:1px solid #ccc; border-radius:6px; font-size:14px;
     }
-    .users-add-body{ background: var(--bg); padding: 24px 16px 48px; }
-    .card-wrap{
-        max-width: 860px; margin: 0 auto; background: var(--card);
-        border: 1px solid var(--ring); border-radius: 16px;
-        box-shadow: 0 10px 28px rgba(0,0,0,.06); overflow: hidden;
-    }
-    .card-head{
-        padding: 22px 24px; border-bottom: 1px solid var(--ring);
-        display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .card-title{ font-size: 22px; font-weight: 800; color: var(--text); margin: 0; }
-    .btn-link{
-        display:inline-flex; gap:6px; align-items:center; background:#fff;
-        border:1px solid var(--ring); color:var(--text); padding:8px 12px;
-        border-radius:10px; text-decoration:none; font-weight:600;
-    }
-    .btn-link:hover{ background:#fafafa; }
-    .card-body{ padding: 22px 24px 28px; }
+
+    /* two-column form */
     .form-grid{ display:grid; grid-template-columns:1fr 1fr; gap:16px 20px; }
     @media (max-width: 720px){ .form-grid{ grid-template-columns:1fr; } }
-    .form-field label{ display:block; font-weight:700; margin-bottom:8px; color:var(--text); }
-    .form-field input, .form-field textarea, .form-field select{
-        width:100%; border:1px solid var(--ring); border-radius:10px; padding:12px 12px;
-        font-size:15px; outline:none; background:#fff; transition: box-shadow .15s, border-color .15s;
-    }
-    .form-field input:focus, .form-field select:focus{
-        border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,0,0,.12);
-    }
-    .field-help{ font-size:12px; color:var(--muted); margin-top:6px; }
-    .error-message{ margin-top:6px; color:var(--danger); font-size:13px; font-weight:600; }
-    .form-actions{ display:flex; gap:12px; margin-top: 8px; }
-    .btn-primary{
-        background:var(--primary); color:#fff; border:none; border-radius:10px;
-        padding:12px 16px; font-weight:800; cursor:pointer;
-    }
-    .btn-primary:hover{ background:var(--primary-2); }
-    .btn-ghost{
-        background:#fff; color:var(--text); border:1px solid var(--ring);
-        border-radius:10px; padding:12px 16px; text-decoration:none; font-weight:700;
-    }
-    .btn-ghost:hover{ background:#fafafa; }
+
+    .error-message{ margin-top:6px; color:#dc2626; font-size:13px; font-weight:600; }
+    .toggle-pass{ position:absolute; right:10px; top:50%; transform:translateY(-50%); border:0; background:transparent; cursor:pointer; color:#6b7280; font-size:12px; font-weight:700; }
     .password-wrap{ position:relative; }
-    .toggle-pass{
-        position:absolute; right:10px; top:50%; transform: translateY(-50%);
-        border:0; background:transparent; cursor:pointer; color:var(--muted);
-        font-size:13px; font-weight:700;
-    }
-    .toggle-pass:focus{ outline:none; color:var(--text); }
 </style>
 
-<div class="users-add-body">
-    <div class="card-wrap">
-        <div class="card-head">
-            <h2 class="card-title">Add User</h2>
-            <div class="actions-inline">
-                <?= $this->Html->link('← Back to Users', ['action' => 'index'], ['class' => 'btn-link']) ?>
+<div class="admin-shell">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h4>Admin</h4>
+        <ul class="nav-list">
+            <li><a class="nav-link"        href="<?= $productsUrl ?>">🛒 Products</a></li>
+            <li><a class="nav-link active" href="<?= $usersUrl ?>">👥 Users</a></li>
+            <li><a class="nav-link"        href="<?= $contactsUrl ?>">📩 Enquiries</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main -->
+    <main>
+        <div class="content-card">
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+                <h3 style="margin:0">Add User</h3>
+                <div>
+                    <?= $this->Html->link('← Back to Users', ['action' => 'index'], ['class' => 'btn btn-grey']) ?>
+                </div>
+            </div>
+
+            <div style="margin-top:12px;">
+                <?= $this->Form->create($user, ['novalidate' => true]) ?>
+
+                <div class="form-grid">
+                    <!-- Email -->
+                    <div class="input">
+                        <?= $this->Form->label('email', 'Email') ?>
+                        <?= $this->Form->control('email', [
+                            'label' => false,
+                            'type' => 'email',
+                            'placeholder' => 'name@example.com',
+                            'required' => true
+                        ]) ?>
+                        <?= $this->Form->error('email', null, ['class' => 'error-message']) ?>
+                    </div>
+
+                    <!-- Password (with toggle) -->
+                    <div class="input password-wrap">
+                        <?= $this->Form->label('password', 'Password') ?>
+                        <?= $this->Form->control('password', [
+                            'label' => false,
+                            'type' => 'password',
+                            'placeholder' => 'Set a secure password',
+                            'required' => true,
+                            'id' => 'pass-input'
+                        ]) ?>
+                        <button type="button" class="toggle-pass" id="toggle-pass">SHOW</button>
+                        <?= $this->Form->error('password', null, ['class' => 'error-message']) ?>
+                    </div>
+
+                    <!-- Role -->
+                    <div class="input">
+                        <?= $this->Form->label('role', 'Role') ?>
+                        <?= $this->Form->control('role', [
+                            'label' => false,
+                            'type'  => 'select',
+                            'options' => ['customer' => 'customer', 'admin' => 'admin'],
+                            'default' => 'customer',
+                            'empty' => false
+                        ]) ?>
+                        <?= $this->Form->error('role', null, ['class' => 'error-message']) ?>
+                    </div>
+
+                    <!-- Nonce -->
+                    <div class="input">
+                        <?= $this->Form->label('nonce', 'Nonce') ?>
+                        <?= $this->Form->control('nonce', [
+                            'label' => false,
+                            'placeholder' => 'Optional one-time token'
+                        ]) ?>
+                        <?= $this->Form->error('nonce', null, ['class' => 'error-message']) ?>
+                    </div>
+
+                    <!-- Nonce expiry -->
+                    <div class="input">
+                        <?= $this->Form->label('nonce_expiry', 'Nonce Expiry') ?>
+                        <?= $this->Form->control('nonce_expiry', [
+                            'label' => false,
+                            'type'  => 'datetime-local',
+                            'empty' => true
+                        ]) ?>
+                        <?= $this->Form->error('nonce_expiry', null, ['class' => 'error-message']) ?>
+                    </div>
+                </div>
+
+                <div style="margin-top:12px;">
+                    <?= $this->Form->button('Create User', ['class' => 'btn btn-dark']) ?>
+                    <?= $this->Html->link('Cancel', ['action' => 'index'], ['class' => 'btn']) ?>
+                </div>
+
+                <?= $this->Form->end() ?>
             </div>
         </div>
+    </main>
 
-        <div class="card-body">
-            <?= $this->Form->create($user, ['novalidate' => true]) ?>
-
-            <div class="form-grid">
-                <!-- Email -->
-                <div class="form-field">
-                    <?= $this->Form->label('email', 'Email') ?>
-                    <?= $this->Form->control('email', [
-                        'label' => false, 'type' => 'email',
-                        'placeholder' => 'name@example.com', 'required' => true,
-                    ]) ?>
-                    <div class="field-help">We’ll never share your email.</div>
-                    <?= $this->Form->error('email', null, ['class' => 'error-message']) ?>
-                </div>
-
-                <!-- Password + toggle -->
-                <div class="form-field password-wrap">
-                    <?= $this->Form->label('password', 'Password') ?>
-                    <?= $this->Form->control('password', [
-                        'label' => false, 'type' => 'password',
-                        'placeholder' => 'Set a secure password', 'required' => true,
-                        'id' => 'pass-input'
-                    ]) ?>
-                    <button type="button" class="toggle-pass" id="toggle-pass">SHOW</button>
-                    <div class="field-help">At least 8 characters is recommended.</div>
-                    <?= $this->Form->error('password', null, ['class' => 'error-message']) ?>
-                </div>
-
-                <!-- Role (customer/admin) -->
-                <div class="form-field">
-                    <?= $this->Form->label('role', 'Role') ?>
-                    <?= $this->Form->control('role', [
-                        'label' => false, 'type' => 'select',
-                        'options' => ['customer' => 'customer', 'admin' => 'admin'],
-                        'default' => 'customer', 'empty' => false,
-                    ]) ?>
-                    <?= $this->Form->error('role', null, ['class' => 'error-message']) ?>
-                </div>
-
-                <!-- Nonce -->
-                <div class="form-field">
-                    <?= $this->Form->label('nonce', 'Nonce') ?>
-                    <?= $this->Form->control('nonce', [
-                        'label' => false, 'placeholder' => 'Optional one-time token',
-                    ]) ?>
-                    <div class="field-help">Optional token for verification or invitations.</div>
-                    <?= $this->Form->error('nonce', null, ['class' => 'error-message']) ?>
-                </div>
-
-                <!-- Nonce Expiry -->
-                <div class="form-field">
-                    <?= $this->Form->label('nonce_expiry', 'Nonce Expiry') ?>
-                    <?= $this->Form->control('nonce_expiry', [
-                        'label' => false, 'type' => 'datetime-local', 'empty' => true,
-                    ]) ?>
-                    <div class="field-help">Leave empty if the token does not expire.</div>
-                    <?= $this->Form->error('nonce_expiry', null, ['class' => 'error-message']) ?>
-                </div>
-            </div>
-
-            <div class="form-actions">
-                <?= $this->Form->button('Create User', ['class' => 'btn-primary']) ?>
-                <?= $this->Html->link('Cancel', ['action' => 'index'], ['class' => 'btn-ghost']) ?>
-            </div>
-
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
 </div>
 
 <script>
