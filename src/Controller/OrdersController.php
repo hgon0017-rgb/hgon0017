@@ -39,7 +39,14 @@ class OrdersController extends AppController
 
         if ($this->request->is('post')) {
             // Patch submitted form data into the entity
-            $order = $this->Orders->patchEntity($order, $this->request->getData());
+            $order = $this->Orders->patchEntity($order, $this->request->getData(), [
+                'fields' => [
+                    'name', 'email', 'phone', 'address', 'city', 'postal_code',
+                    'payment_method',
+                    'cardholder_name', 'card_number', 'exp_date', 'cvc',
+                    'account_name', 'account_number', 'bsb'
+                ]
+            ]);
 
             // Attach calculated values
             $identity        = $this->Authentication->getIdentity();
@@ -50,10 +57,17 @@ class OrdersController extends AppController
             $order->total    = $total;
 
             // Set status depending on payment method
-            if ($order->payment_method === 'cod') {
-                $order->status = 'pending (Pay on Delivery)'; // Special label for COD
+            if ($order->payment_method === 'bank_transfer') {
+                // Validate required bank transfer fields
+                if (empty($order->account_name) || empty($order->account_number) || empty($order->bsb)) {
+                    $this->Flash->error(__('Please fill in all bank transfer details.'));
+                } else {
+                    $order->status = 'pending (Bank Transfer)';
+                }
+            } elseif ($order->payment_method === 'credit_card') {
+                $order->status = 'paid (Card Payment)';
             } else {
-                $order->status = 'pending'; // Default for other payment methods
+                $order->status = 'pending';
             }
 
             // Save order into database
@@ -91,6 +105,7 @@ class OrdersController extends AppController
         $this->set(compact('order', 'cartItems'));
     }
 }
+
 
 
 

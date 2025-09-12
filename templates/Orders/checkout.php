@@ -183,29 +183,49 @@
         <!-- Payment Methods -->
         <div class="card payment-methods">
             <h3>Payment Methods</h3>
-            <label>
-                <?= $this->Form->radio('payment_method', [['value' => 'credit_card', 'text' => 'Credit / Debit Card']], ['hiddenField' => false, 'id' => 'pay-credit']) ?>
-            </label>
+            <?= $this->Form->radio('payment_method', [
+                ['value' => 'bank_transfer', 'text' => 'Bank Transfer (Account & BSB)'],
+                ['value' => 'credit_card', 'text' => 'Credit / Debit Card']
+            ], ['hiddenField' => false]) ?>
 
-            <!-- Card logos -->
-            <div class="card-icons">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="MasterCard">
+            <!-- Bank Transfer fields -->
+            <div class="payment-extra" id="bank-fields">
+                <?= $this->Form->control('account_name', [
+                    'label' => false,
+                    'placeholder' => 'Account Holder Name',
+                    'class' => 'form-control'
+                ]) ?>
+                <?= $this->Form->control('account_number', [
+                    'label' => false,
+                    'placeholder' => 'Account Number',
+                    'class' => 'form-control',
+                    'pattern' => '^[0-9]{8,12}$',
+                    'title' => 'Account Number must be 8–12 digits'
+                ]) ?>
+                <?= $this->Form->control('bsb', [
+                    'label' => false,
+                    'placeholder' => 'BSB (6 digits)',
+                    'class' => 'form-control',
+                    'pattern' => '^[0-9]{6}$',
+                    'title' => 'BSB must be exactly 6 digits'
+                ]) ?>
             </div>
 
-            <!-- Extra fields: only show when credit card selected -->
+            <!-- Credit Card fields -->
             <div class="payment-extra" id="credit-fields">
+                <div class="card-icons">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="MasterCard">
+                </div>
                 <?= $this->Form->control('cardholder_name', [
                     'label' => false,
                     'placeholder' => 'Cardholder Name',
-                    'class' => 'form-control',
-                    'required' => true
+                    'class' => 'form-control'
                 ]) ?>
                 <?= $this->Form->control('card_number', [
                     'label' => false,
                     'placeholder' => 'Card Number',
                     'class' => 'form-control',
-                    'required' => true,
                     'pattern' => '^[0-9]{13,19}$',
                     'title' => 'Please enter a valid card number (13-19 digits)'
                 ]) ?>
@@ -213,7 +233,6 @@
                     'label' => false,
                     'placeholder' => 'MM/YY',
                     'class' => 'form-control',
-                    'required' => true,
                     'pattern' => '^(0[1-9]|1[0-2])\/[0-9]{2}$',
                     'title' => 'Enter expiration as MM/YY'
                 ]) ?>
@@ -221,12 +240,10 @@
                     'label' => false,
                     'placeholder' => 'CVC',
                     'class' => 'form-control',
-                    'required' => true,
                     'pattern' => '^[0-9]{3,4}$',
                     'title' => 'CVC must be 3 or 4 digits'
                 ]) ?>
             </div>
-
         </div>
     </div>
 
@@ -254,7 +271,6 @@
                 </div>
             <?php endforeach; ?>
 
-
             <!-- Totals -->
             <div class="line"><span>Subtotal</span><span>A$<?= number_format($subtotal,2) ?></span></div>
             <div class="line"><span>Shipping</span><span>A$<?= number_format($shipping,2) ?></span></div>
@@ -268,26 +284,41 @@
     </div>
 </div>
 
-<!-- JS: toggle credit card fields -->
+<!-- JS: toggle payment fields -->
 <script>
     document.addEventListener("DOMContentLoaded", function(){
-        const creditRadio = document.querySelector("input[value='credit_card']");
-        const codRadio = document.querySelector("input[value='cod']");
+        const radios = document.querySelectorAll("input[name='payment_method']");
         const creditFields = document.getElementById("credit-fields");
+        const bankFields = document.getElementById("bank-fields");
 
         function toggleFields() {
-            if (creditRadio && creditRadio.checked) {
+            const selected = document.querySelector("input[name='payment_method']:checked");
+            if (!selected) return;
+
+            if (selected.value === "credit_card") {
                 creditFields.style.display = "block";
+                bankFields.style.display = "none";
+                // disable bank fields
+                bankFields.querySelectorAll("input").forEach(i => i.disabled = true);
+                creditFields.querySelectorAll("input").forEach(i => i.disabled = false);
+            } else if (selected.value === "bank_transfer") {
+                bankFields.style.display = "block";
+                creditFields.style.display = "none";
+                // disable card fields
+                creditFields.querySelectorAll("input").forEach(i => i.disabled = true);
+                bankFields.querySelectorAll("input").forEach(i => i.disabled = false);
             } else {
                 creditFields.style.display = "none";
+                bankFields.style.display = "none";
             }
         }
 
-        if (creditRadio) creditRadio.addEventListener("change", toggleFields);
-        if (codRadio) codRadio.addEventListener("change", toggleFields);
-        toggleFields(); // initialize
+        radios.forEach(r => r.addEventListener("change", toggleFields));
+        toggleFields();
     });
+
 </script>
+
 
 
 
