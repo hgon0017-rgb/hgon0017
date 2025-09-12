@@ -193,21 +193,25 @@
                 <?= $this->Form->control('account_name', [
                     'label' => false,
                     'placeholder' => 'Account Holder Name',
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'title' => 'fill in your bank account name',
+                    'required' => true
                 ]) ?>
                 <?= $this->Form->control('account_number', [
                     'label' => false,
                     'placeholder' => 'Account Number',
                     'class' => 'form-control',
                     'pattern' => '^[0-9]{8,12}$',
-                    'title' => 'Account Number must be 8–12 digits'
+                    'title' => 'Account Number must be 8–12 digits',
+                    'required' => true
                 ]) ?>
                 <?= $this->Form->control('bsb', [
                     'label' => false,
                     'placeholder' => 'BSB (6 digits)',
                     'class' => 'form-control',
                     'pattern' => '^[0-9]{6}$',
-                    'title' => 'BSB must be exactly 6 digits'
+                    'title' => 'BSB must be exactly 6 digits',
+                    'required' => true
                 ]) ?>
             </div>
 
