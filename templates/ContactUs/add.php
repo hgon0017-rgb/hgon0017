@@ -187,11 +187,6 @@ $this->assign('title', 'Contact Us');
                 'required' => true
             ]) ?>
 
-            <label class="checkbox">
-                <?= $this->Form->control('email_sent', ['type' => 'checkbox', 'label' => false]) ?>
-                <span>Email Sent</span>
-            </label>
-
             <!-- reCAPTCHA (uses site key from configuration) -->
             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
             <div class="g-recaptcha" data-sitekey="<?= h(\Cake\Core\Configure::read('Recaptcha.siteKey')) ?>"></div>

@@ -10,6 +10,7 @@
 //$incomeUrl   = $this->Url->build(['controller' => 'Users', 'action' => 'income']);   // ✅ users/income
 $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'add']); // ✅ users/products
 $usersUrl    = $this->Url->build(['controller' => 'Users', 'action' => 'index']);
+$contactsUrl = $this->Url->build(['controller' => 'ContactUs', 'action' => 'index']);
 ?>
 
 <style>
@@ -39,6 +40,7 @@ $usersUrl    = $this->Url->build(['controller' => 'Users', 'action' => 'index'])
 <!--            <li><a class="nav-link" href="--><?php //= $incomeUrl ?><!--">💰 Income</a></li>-->
             <li><a class="nav-link" href="<?= $productsUrl ?>">🛒 Products</a></li>
             <li><a class="nav-link active" href="<?= $usersUrl ?>">👥 Users</a></li>
+            <li><a class="nav-link active" href="<?= $contactsUrl ?>">📩Enquiries</a></li>
         </ul>
     </aside>
 

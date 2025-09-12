@@ -32,9 +32,10 @@ class ContactUsController extends AppController
      */
     public function index()
     {
-        $query = $this->ContactUs->find();
+        $this->Authorization->skipAuthorization();
+        $query = $this->ContactUs->find()
+            ->order(['created' => 'DESC']);
         $contactUs = $this->paginate($query);
-
         $this->set(compact('contactUs'));
     }
 

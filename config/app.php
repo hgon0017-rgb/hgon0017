@@ -458,10 +458,10 @@ return [
 
     'Session' => [
         'defaults' => 'php',
-        'timeout' => 10,
+        'timeout' => 30,
         'ini' => [
-            'session.gc_maxlifetime' => 600,
-            'session.cookie_lifetime' => 600,
+            'session.gc_maxlifetime' => 1800,
+            'session.cookie_lifetime' => 1800,
         ]
     ],
 
