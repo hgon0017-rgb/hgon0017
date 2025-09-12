@@ -8,7 +8,7 @@
 
 // Sidebar links
 //$incomeUrl   = $this->Url->build(['controller' => 'Users', 'action' => 'income']);   // ✅ users/income
-$productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'add']); // ✅ users/products
+$productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'dashboard']); // ✅ users/products
 $usersUrl    = $this->Url->build(['controller' => 'Users', 'action' => 'index']);
 $contactsUrl = $this->Url->build(['controller' => 'ContactUs', 'action' => 'index']);
 ?>
