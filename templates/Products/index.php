@@ -104,24 +104,29 @@ $this->assign('title', 'Product Showcase');
             </div>
 
             <div class="card-actions">
-                <!-- Quantity selector -->
-                <select class="qty-select" form="<?= $formId ?>" name="qty">
-                    <?php for ($q=1; $q<=10; $q++): ?>
-                        <option value="<?= $q ?>"><?= $q ?></option>
-                    <?php endfor; ?>
-                </select>
+                <?php if ($p->stock > 0): ?>
+                    <!-- Quantity selector -->
+                    <select class="qty-select" form="<?= $formId ?>" name="qty">
+                        <?php for ($q=1; $q<=10; $q++): ?>
+                            <option value="<?= $q ?>"><?= $q ?></option>
+                        <?php endfor; ?>
+                    </select>
 
-                <form id="<?= $formId ?>" method="get" action="<?= $cartUrl ?>">
-                    <input type="hidden" name="id"    value="<?= (int)$p->id ?>">
-                    <input type="hidden" name="name"  value="<?= h($p->name) ?>">
-                    <input type="hidden" name="price" value="<?= (float)$p->pricing ?>">
-                    <input type="hidden" name="image" value="<?= h($p->image_path) ?>">
+                    <form id="<?= $formId ?>" method="get" action="<?= $cartUrl ?>">
+                        <input type="hidden" name="id"    value="<?= (int)$p->id ?>">
+                        <input type="hidden" name="name"  value="<?= h($p->name) ?>">
+                        <input type="hidden" name="price" value="<?= (float)$p->pricing ?>">
+                        <input type="hidden" name="image" value="<?= h($p->image_path) ?>">
 
-                    <button type="submit" class="btn-cart" aria-label="Add to cart">
-                        <span>🛒</span> Add to cart
-                    </button>
-                </form>
+                        <button type="submit" class="btn-cart" aria-label="Add to cart">
+                            <span>🛒</span> Add to cart
+                        </button>
+                    </form>
+                <?php else: ?>
+                    <span style="color:red;font-weight:bold;">Out of Stock</span>
+                <?php endif; ?>
             </div>
+
         </div>
     <?php endforeach; ?>
 </div>
