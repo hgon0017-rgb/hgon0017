@@ -184,7 +184,7 @@
         <div class="card payment-methods">
             <h3>Payment Methods</h3>
             <?= $this->Form->radio('payment_method', [
-                ['value' => 'bank_transfer', 'text' => 'Bank Transfer (Account & BSB)'],
+                ['value' => 'bank_transfer', 'text' => 'Direct Debit (BSB & Account)'],
                 ['value' => 'credit_card', 'text' => 'Credit / Debit Card']
             ], ['hiddenField' => false]) ?>
 
