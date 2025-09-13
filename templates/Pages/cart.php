@@ -233,3 +233,55 @@ $total    = max(0, $subtotal - $discount + $shipping);
 
     <?php endif; ?>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".qty button").forEach(btn => {
+            btn.addEventListener("click", function() {
+                const row = this.closest("tr");
+                const input = row.querySelector(".qty input");
+                const priceCell = row.querySelector("td.price"); // unit price cell
+                const subtotalCell = row.querySelectorAll("td.price")[1]; // subtotal cell
+
+                let qty = parseInt(input.value) || 1;
+                const unitPrice = parseFloat(priceCell.textContent.replace("A$", ""));
+
+                // Increase or decrease quantity
+                if (this.textContent.includes("−")) {
+                    qty = Math.max(1, qty - 1);
+                } else {
+                    qty = qty + 1;
+                }
+
+                // Update input
+                input.value = qty;
+
+                // Update row subtotal
+                subtotalCell.textContent = "A$" + (unitPrice * qty).toFixed(2);
+
+                // Recalculate summary
+                let subtotal = 0;
+                document.querySelectorAll("tbody tr").forEach(r => {
+                    const sub = r.querySelectorAll("td.price")[1];
+                    subtotal += parseFloat(sub.textContent.replace("A$", ""));
+                });
+
+                let shipping = subtotal > 60 ? 0 : 7.9;
+                let discount = 0;
+                let total = subtotal - discount + shipping;
+
+                document.querySelector(".summary .line:nth-child(2) .price").textContent = "A$" + subtotal.toFixed(2);
+                document.querySelector(".summary .line:nth-child(3) .price").innerHTML =
+                    shipping > 0 ? "A$" + shipping.toFixed(2) : 'A$0.00 <span class="badge-free">FREE</span>';
+                document.querySelector(".summary .line:nth-child(4) .price").textContent = "− A$" + discount.toFixed(2);
+                document.querySelector(".summary .total").textContent = "A$" + total.toFixed(2);
+
+                // Update "Spend more for free shipping" notice
+                const freeShip = Math.max(0, 60 - subtotal);
+                document.querySelector(".summary div[style*='font-size:12px']").innerHTML =
+                    "Spend <strong>A$" + freeShip.toFixed(2) + "</strong> more for free shipping.";
+            });
+        });
+    });
+</script>
+
