@@ -88,8 +88,8 @@ class ProductsController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->getData();
 
-            // Handle file upload (field name: image)
-            $file = $this->request->getData('image');
+            // Handle file upload (field name: image_path)
+            $file = $this->request->getData('image_path');
             if ($file && $file->getError() === UPLOAD_ERR_OK) {
                 $filename   = time() . '_' . $file->getClientFilename();
                 $dir        = WWW_ROOT . 'img' . DS . 'products';
@@ -99,7 +99,11 @@ class ProductsController extends AppController
                     mkdir($dir, 0775, true);
                 }
                 $file->moveTo($targetPath);
+
+                // Save relative path in DB
                 $data['image_path'] = 'products/' . $filename;
+            } else {
+                unset($data['image_path']); // avoid validation error if no file uploaded
             }
 
             $product = $this->Products->patchEntity($product, $data);
@@ -114,6 +118,7 @@ class ProductsController extends AppController
 
         $this->set(compact('product'));
     }
+
 
     /**
      * Edit method
