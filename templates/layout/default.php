@@ -19,6 +19,86 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') . $this->fetch('default') . $this->fetch('script') ?>
     <?= $this->Html->css('default') ?>
     <style>
+        .site-footer {
+            background: #111;
+            color: #fff;
+            padding: 30px 20px;
+            font-size: 14px;
+        }
+
+        .site-footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap; /* lets items stack on small screens */
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-left {
+            flex: 1 1 200px;
+        }
+
+        .footer-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .footer-nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .footer-nav a:hover {
+            text-decoration: underline;
+        }
+
+        .social {
+            display: flex;
+            gap: 14px;
+            font-size: 18px;
+        }
+
+        .social a {
+            color: #fff;
+            transition: opacity 0.2s ease;
+        }
+        .social a:hover {
+            opacity: 0.7;
+        }
+
+        .contact-block {
+            font-style: normal;
+            line-height: 1.6;
+            flex: 1 1 220px;
+        }
+
+        .copyright {
+            margin-top: 8px;
+            font-size: 13px;
+            color: #bbb;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .site-footer-inner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footer-nav {
+                flex-direction: row;
+                justify-content: center;
+            }
+            .contact-block {
+                margin-top: 15px;
+            }
+        }
+
         /* === Fix blank space under footer === */
         html, body {
             height: 100%;
@@ -65,6 +145,24 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             padding: 2px 5px;
             border-radius: 50%;
         }
+        #loginBtn {
+            display:inline-block;
+            padding:8px 18px;
+            border:2px solid #fff;
+            border-radius:6px;
+            background:transparent;
+            color:#fff;
+            text-decoration:none;
+            font-weight:600;
+            font-size:14px;
+            transition: all 0.3s ease;
+        }
+        #loginBtn:hover {
+            background:#fff;
+            color:#000;
+            transform:translateY(-2px);
+            box-shadow:0 4px 8px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 
@@ -102,26 +200,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 ['controller'=>'Auth','action'=>'login','prefix'=>false],
                 ['id' => 'loginBtn']
             ) ?>
-            <style>
-                #loginBtn {
-                    display:inline-block;
-                    padding:8px 18px;
-                    border:2px solid #fff;
-                    border-radius:6px;
-                    background:transparent;
-                    color:#fff;
-                    text-decoration:none;
-                    font-weight:600;
-                    font-size:14px;
-                    transition: all 0.3s ease;
-                }
-                #loginBtn:hover {
-                    background:#fff;
-                    color:#000;
-                    transform:translateY(-2px);
-                    box-shadow:0 4px 8px rgba(0,0,0,0.2);
-                }
-            </style>
         <?php endif; ?>
 
         <!-- Cart link -->
