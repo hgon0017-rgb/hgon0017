@@ -79,7 +79,7 @@ $contactsUrl = $this->Url->build(['controller' => 'ContactUs','action' => 'index
                             <td><?= $this->Number->format($p->id) ?></td>
                             <td><?= h($p->name ?? '—') ?></td>
                             <td><?= h($p->sku ?? '—') ?></td>
-                            <td>$<?= $this->Number->precision((float)($p->price ?? 0), 2) ?></td>
+                            <td>A$<?= $this->Number->precision((float)($p->pricing ?? 0), 2) ?></td>
                             <td><?= $this->Number->format((int)($p->stock ?? 0)) ?></td>
                             <td><?= h($p->status ?? 'active') ?></td>
                             <td><?= $p->created  ? $p->created->format('Y-m-d H:i')  : '—' ?></td>
