@@ -71,10 +71,9 @@ class ContactUsTable extends Table
             ->notEmptyString('description');
 
         $validator
-            ->boolean('email_sent')
-            ->requirePresence('email_sent', 'create')
-            ->notEmptyString('email_sent');
-
+            ->scalar('phone')
+            ->maxLength('phone', 30)
+            ->allowEmptyString('phone');
         return $validator;
     }
 }

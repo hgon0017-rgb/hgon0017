@@ -29,8 +29,8 @@ class ContactU extends Entity
     protected array $_accessible = [
         'full_name' => true,
         'email' => true,
+        'phone' => true,
         'description' => true,
         'created' => true,
-        'email_sent' => true,
     ];
 }
