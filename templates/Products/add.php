@@ -179,7 +179,7 @@ $contactsUrl = $this->Url->build(['controller' => 'ContactUs', 'action' => 'inde
                 <!-- Image upload -->
                 <div>
                     <label class="form-label">Image Path</label>
-                    <?= $this->Form->control('image', [
+                    <?= $this->Form->control('image_path', [
                         'type' => 'file',
                         'label' => false,
                         'class' => 'form-input'
