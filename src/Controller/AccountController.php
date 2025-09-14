@@ -16,11 +16,9 @@ class AccountController extends AppController
     {
         $this->Authorization->skipAuthorization();
 
-        // TODO: check the actual order
-        $orders = [
-            ['id' => 101, 'date' => '2025-09-01', 'status' => 'Shipped'],
-            ['id' => 102, 'date' => '2025-09-05', 'status' => 'Processing'],
-        ];
+        // Empty order list
+        $orders = [];
+
         $this->set(compact('orders'));
     }
 
