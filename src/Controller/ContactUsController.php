@@ -48,6 +48,7 @@ class ContactUsController extends AppController
      */
     public function view(?string $id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
         $contactU = $this->ContactUs->get($id, contain: []);
         $this->set(compact('contactU'));
     }
@@ -123,30 +124,6 @@ class ContactUsController extends AppController
         }
 
         $this->set(compact('contactU'));
-    }
-
-    /**
-     * Mark as sent method
-     *
-     * @param string|null $id Contact U id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function mark(?string $id = null)
-    {
-        $contactU = $this->ContactUs->get($id);
-        if ($contactU->email_sent) {
-            $this->Flash->error(__('This enquiry is already marked as sent.'));
-        } else {
-            $contactU->email_sent = true;
-            if ($this->ContactUs->save($contactU)) {
-                $this->Flash->success(__('The enquiry has been saved.'));
-            } else {
-                $this->Flash->error(__('The enquiry could not be saved. Please, try again.'));
-            }
-        }
-
-        return $this->redirect(['action' => 'index']);
     }
 
     /**
