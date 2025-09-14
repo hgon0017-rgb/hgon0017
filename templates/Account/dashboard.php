@@ -100,7 +100,7 @@ $left    = max(0.0, $target - $spent);
     <div class="main-grid">
         <!-- Left column with quick links -->
         <div class="tiles">
-            <a class="tile-link" href="<?= $orderHistoryUrl ?>"><div class="tile"><div class="icon">📦</div><div><h3>Order history →</h3><p>View your order history and track orders</p></div><div class="open-btn">Open ›</div></div></a>
+<!--            <a class="tile-link" href="--><?php //= $orderHistoryUrl ?><!--"><div class="tile"><div class="icon">📦</div><div><h3>Order history →</h3><p>View your order history and track orders</p></div><div class="open-btn">Open ›</div></div></a>-->
             <a class="tile-link" href="<?= $editDetailsUrl ?>"><div class="tile"><div class="icon">👤</div><div><h3>Edit details →</h3><p>Manage account details</p></div><div class="open-btn">Open ›</div></div></a>
             <a class="tile-link" href="<?= $trackOrderUrl ?>"><div class="tile"><div class="icon">🚚</div><div><h3>Track order →</h3><p>Check delivery status</p></div><div class="open-btn">Open ›</div></div></a>
             <a class="tile-link" href="<?= $myListsUrl ?>"><div class="tile"><div class="icon">📋</div><div><h3>My lists →</h3><p>Create and save product lists</p></div><div class="open-btn">Open ›</div></div></a>
@@ -112,7 +112,7 @@ $left    = max(0.0, $target - $spent);
 
             <div class="stats-grid">
                 <div class="stat-card"><div class="icon green">💼</div><div><p class="stat-title">Account balance</p><p class="stat-value">$<?= number_format($accountBalance, 2) ?></p></div></div>
-                <div class="stat-card"><div class="icon purple">❤️</div><div><p class="stat-title">Favorite products</p><p class="stat-value"><?= number_format($favoriteProducts) ?></p></div></div>
+<!--                <div class="stat-card"><div class="icon purple">❤️</div><div><p class="stat-title">Favorite products</p><p class="stat-value">--><?php //= number_format($favoriteProducts) ?><!--</p></div></div>-->
                 <div class="stat-card"><div class="icon">🛒</div><div><p class="stat-title">Cart</p><p class="stat-value"><span id="cart-count"><?= (int)$cartCount ?></span> items · $<span id="cart-subtotal"><?= number_format($cartSubtotal, 2) ?></span></p></div></div>
             </div>
 
