@@ -48,7 +48,7 @@ class ContactUsController extends AppController
      */
     public function view(?string $id = null)
     {
-        $this->viewBuilder()->setLayout('admin');
+//        $this->viewBuilder()->setLayout('admin');
         $contactU = $this->ContactUs->get($id, contain: []);
         $this->set(compact('contactU'));
     }

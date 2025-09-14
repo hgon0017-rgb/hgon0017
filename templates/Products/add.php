@@ -75,16 +75,6 @@ $contactsUrl = $this->Url->build(['controller' => 'ContactUs', 'action' => 'inde
 
     .form-actions { margin-top: 16px; display: flex; gap: 10px; }
     .muted { color: #6b7280; font-size: 13px; }
-    /* Collapse admin layout on small screens */
-    @media (max-width: 768px) {
-        .admin-shell {
-            grid-template-columns: 1fr; /* stack sidebar and content */
-        }
-        .sidebar {
-            margin-bottom: 15px; /* spacing below sidebar */
-        }
-    }
-
 </style>
 
 <div class="admin-shell">
@@ -93,7 +83,7 @@ $contactsUrl = $this->Url->build(['controller' => 'ContactUs', 'action' => 'inde
     <aside class="sidebar">
         <h4>Admin</h4>
         <ul class="nav-list">
-<!--            <li><a class="nav-link" href="--><?php //= $incomeUrl ?><!--">💰 Income</a></li>-->
+            <!--            <li><a class="nav-link" href="--><?php //= $incomeUrl ?><!--">💰 Income</a></li>-->
             <li><a class="nav-link active" href="<?= $productsUrl ?>">🛒 Products</a></li>
             <li><a class="nav-link" href="<?= $usersUrl ?>">👥 Users</a></li>
             <li><a class="nav-link active" href="<?= $contactsUrl ?>">📩Enquiries</a></li>

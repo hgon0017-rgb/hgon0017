@@ -53,7 +53,7 @@ class UsersController extends AppController
     public function view(?string $id = null)
     {
         $this->Authorization->skipAuthorization();
-        $this->viewBuilder()->setLayout('admin');
+//        $this->viewBuilder()->setLayout('admin');
         $user = $this->Users->get($id, contain: []);
         $this->set(compact('user'));
     }
@@ -90,7 +90,7 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        $this->viewBuilder()->setLayout('admin');
+//        $this->viewBuilder()->setLayout('admin');
         $this->Authorization->skipAuthorization();
 
         try {

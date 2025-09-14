@@ -71,7 +71,7 @@ class ProductsController extends AppController
      */
     public function view($id = null)
     {
-        $this->viewBuilder()->setLayout('admin');
+//        $this->viewBuilder()->setLayout('admin');
         $product = $this->Products->get($id, contain: []);
         $this->Authorization->authorize($product);
         $this->set(compact('product'));
