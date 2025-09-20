@@ -4,6 +4,7 @@
  *
  * @var \App\View\AppView $this
  */
+$this->extend('default');
 $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'dashboard']);
 $usersUrl    = $this->Url->build(['controller' => 'Users',    'action' => 'index']);
 $contactsUrl = $this->Url->build(['controller' => 'ContactUs','action' => 'index']);
@@ -41,12 +42,12 @@ $contactsUrl = $this->Url->build(['controller' => 'ContactUs','action' => 'index
         </ul>
     </aside>
 
+
     <!-- Main Content -->
-    <main class="content-card">
+    <main>
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
     </main>
-
 </div>
 </body>
 </html>

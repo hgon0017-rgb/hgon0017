@@ -456,13 +456,13 @@ return [
         'fixtureStrategy' => null,
     ],
 
-    'Session' => [
-        'defaults' => 'php',
-        'timeout' => 30,
-        'ini' => [
-            'session.gc_maxlifetime' => 1800,
-            'session.cookie_lifetime' => 1800,
-        ]
-    ],
+//    'Session' => [
+//        'defaults' => 'php',
+//        'timeout' => 30,
+//        'ini' => [
+//            'session.gc_maxlifetime' => 1800,
+//            'session.cookie_lifetime' => 1800,
+//        ]
+//    ],
 
 ];

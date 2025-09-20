@@ -32,6 +32,8 @@ class ContactUsController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->setLayout('admin');
+
         $this->Authorization->skipAuthorization();
         $query = $this->ContactUs->find()
             ->order(['created' => 'DESC']);
@@ -48,7 +50,7 @@ class ContactUsController extends AppController
      */
     public function view(?string $id = null)
     {
-//        $this->viewBuilder()->setLayout('admin');
+        $this->viewBuilder()->setLayout('admin');
         $contactU = $this->ContactUs->get($id, contain: []);
         $this->set(compact('contactU'));
     }
@@ -135,6 +137,8 @@ class ContactUsController extends AppController
      */
     public function delete(?string $id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
+
         $this->request->allowMethod(['post', 'delete']);
         $contactU = $this->ContactUs->get($id);
         if ($this->ContactUs->delete($contactU)) {

@@ -42,6 +42,7 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->setLayout('admin');
         $this->Authorization->skipAuthorization();
         $users = $this->paginate($this->Users);
         $this->set(compact('users'));
@@ -52,6 +53,7 @@ class UsersController extends AppController
      */
     public function view(?string $id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
         $this->Authorization->skipAuthorization();
 //        $this->viewBuilder()->setLayout('admin');
         $user = $this->Users->get($id, contain: []);
@@ -63,6 +65,8 @@ class UsersController extends AppController
      */
     public function add()
     {
+        $this->viewBuilder()->setLayout('admin');
+
         $this->Authorization->skipAuthorization();
         $user = $this->Users->newEmptyEntity();
 
@@ -90,7 +94,7 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-//        $this->viewBuilder()->setLayout('admin');
+        $this->viewBuilder()->setLayout('admin');
         $this->Authorization->skipAuthorization();
 
         try {
@@ -123,6 +127,8 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
+
         $this->Authorization->skipAuthorization();
         $this->request->allowMethod(['post', 'delete']);
 

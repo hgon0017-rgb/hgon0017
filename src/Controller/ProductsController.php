@@ -43,6 +43,7 @@ class ProductsController extends AppController
     public function dashboard()
     {
         $this->Authorization->skipAuthorization();
+        $this->viewBuilder()->setLayout('admin');
 
         // simple search by name / sku
         $q = trim((string)$this->request->getQuery('q', ''));
@@ -71,7 +72,7 @@ class ProductsController extends AppController
      */
     public function view($id = null)
     {
-//        $this->viewBuilder()->setLayout('admin');
+        $this->viewBuilder()->setLayout('admin');
         $product = $this->Products->get($id, contain: []);
         $this->Authorization->authorize($product);
         $this->set(compact('product'));
@@ -82,6 +83,8 @@ class ProductsController extends AppController
      */
     public function add()
     {
+        $this->viewBuilder()->setLayout('admin');
+
         $product = $this->Products->newEmptyEntity();
         $this->Authorization->authorize($product);
 
@@ -125,6 +128,8 @@ class ProductsController extends AppController
      */
     public function edit($id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
+
         $product = $this->Products->get($id, contain: []);
         $this->Authorization->authorize($product);
 
@@ -146,6 +151,8 @@ class ProductsController extends AppController
      */
     public function delete($id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
+
         $this->request->allowMethod(['post', 'delete']);
 
         $product = $this->Products->get($id);

@@ -215,9 +215,6 @@
     <?= $this->fetch('content') ?>
 </main>
 
-
-
-
 <footer class="site-footer" role="contentinfo">
     <div class="site-footer-inner">
         <!-- Left: copyright -->
