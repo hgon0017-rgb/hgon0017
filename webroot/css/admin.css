@@ -43,12 +43,20 @@
     font-weight: 700;
 }
 
-/* Content */
+/* Main content */
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Content card */
 .content-card {
     background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 12px;
     padding: 18px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 /* Buttons */
@@ -79,3 +87,56 @@ th, td {
 thead { background: #f2f2f2; }
 
 .muted { color: #6b7280; }
+
+/* Tablet breakpoint */
+@media (max-width: 992px) {
+    .admin-shell {
+        grid-template-columns: 1fr;
+    }
+    .sidebar {
+        margin-bottom: 20px;
+    }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 576px) {
+    .nav-link {
+        width: 100%;
+        justify-content: flex-start;
+        font-size: 15px;
+    }
+    table {
+        font-size: 12px;
+    }
+    th, td {
+        padding: 6px;
+    }
+    .btn {
+        font-size: 12px;
+        padding: 6px 10px;
+        margin: 2px 0;
+    }
+}
+/* Make page take full height and push footer down */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #f6f7fb; /* matches your admin background */
+}
+
+.admin-shell {
+    flex: 1; /* this makes sidebar + content expand to fill space */
+}
+
+/* Ensure footer sits at the bottom */
+.site-footer {
+    margin-top: auto;
+}
+
