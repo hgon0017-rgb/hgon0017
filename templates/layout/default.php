@@ -3,7 +3,6 @@
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * @var \App\View\AppView $this
  */
-$cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
 
 <!DOCTYPE html>
