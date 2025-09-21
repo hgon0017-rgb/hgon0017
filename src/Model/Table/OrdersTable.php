@@ -45,7 +45,7 @@ class OrdersTable extends Table
         // 订单属于用户（前提：你有 users 表）
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'LEFT', // 允许匿名订单（非必填）
+            'joinType' => 'LEFT', //
         ]);
     }
 
