@@ -30,6 +30,7 @@ class OrdersController extends AppController
      */
     public function index()
     {
+        $this->viewBuilder()->setLayout('admin');
         $query = $this->Orders->find()
             ->contain(['Users']);
         $query = $this->Authorization->applyScope($query);
@@ -47,6 +48,7 @@ class OrdersController extends AppController
      */
     public function view($id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
         $order = $this->Orders->get($id, contain: ['Users']);
         $this->Authorization->authorize($order);
         $this->set(compact('order'));
@@ -59,6 +61,7 @@ class OrdersController extends AppController
      */
     public function add()
     {
+        $this->viewBuilder()->setLayout('admin');
         $order = $this->Orders->newEmptyEntity();
         $this->Authorization->authorize($order);
         if ($this->request->is('post')) {
@@ -83,6 +86,7 @@ class OrdersController extends AppController
      */
     public function edit($id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
         $order = $this->Orders->get($id, contain: []);
         $this->Authorization->authorize($order);
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -107,6 +111,7 @@ class OrdersController extends AppController
      */
     public function delete($id = null)
     {
+        $this->viewBuilder()->setLayout('admin');
         $this->request->allowMethod(['post', 'delete']);
         $order = $this->Orders->get($id);
         $this->Authorization->authorize($order);

@@ -42,7 +42,7 @@ $ordersUrl   = $this->Url->build(['controller' => 'Orders','action' => 'index'])
             </li>
             <li>
                 <a class="nav-link<?= $this->fetch('active') === 'orders' ? ' active' : '' ?>"
-                   href="<?= $ordersUrl ?>">📩 Orders</a>
+                   href="<?= $ordersUrl ?>">Orders</a>
             </li>
         </ul>
     </aside>
