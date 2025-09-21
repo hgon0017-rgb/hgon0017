@@ -12,6 +12,53 @@ use Cake\Http\Exception\NotFoundException;
 ?>
 
 <style>
+    .dropdown {
+        display: inline-block;
+        position: relative;
+    }
+
+    .dropdown-btn {
+        background: #eee;
+        border: none;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-top: 4px;
+        min-width: 140px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+        list-style: none;
+        padding: 6px 0;
+        z-index: 1000;
+    }
+
+    .dropdown-menu li a {
+        display: block;
+        padding: 8px 12px;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+    }
+
+    .dropdown-menu li a:hover {
+        background: #f2f2f2;
+    }
+
+    /* Active dropdown */
+    .dropdown-menu.show {
+        display: block;
+    }
+
     /* Background to match logo */
     body { background-color: #f9f6f1; }
 
@@ -154,9 +201,16 @@ use Cake\Http\Exception\NotFoundException;
 <!-- Static preview cards on home (kept) -->
 <div class="toolbar" style="padding-inline:2rem; margin-top:12px; margin-bottom:16px;">
     <h2 id="products" style="margin:0 0 6px 0;">Products</h2>
-    <span style="background:#eee; border-radius:999px; padding:6px 10px; font-size:13px; display:inline-block;">
-        Flags ▾
-    </span>
+
+    <!-- Dropdown -->
+    <div class="dropdown">
+        <button class="dropdown-btn" id="dropdownToggle">Flags ▾</button>
+        <ul class="dropdown-menu" id="dropdownMenu">
+            <li><a href="<?= $this->Url->build(['controller' => 'Products', 'action' => 'index']) ?>">Flags</a></li>
+            <li><a href="#">Signage</a></li>
+            <li><a href="#">Custom order</a></li>
+        </ul>
+    </div>
 </div>
 
 <section class="grid" aria-label="Flag products">
@@ -215,6 +269,22 @@ use Cake\Http\Exception\NotFoundException;
         }, INTERVAL);
 
         // NOTE: removed the code that forced the navbar "Products" link to "#products".
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggle = document.getElementById("dropdownToggle");
+        const menu = document.getElementById("dropdownMenu");
+
+        toggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            menu.classList.toggle("show");
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener("click", function (e) {
+            if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove("show");
+            }
+        });
     });
 </script>
 

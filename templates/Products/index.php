@@ -67,6 +67,10 @@ $this->assign('title', 'Product Showcase');
     </div>
 </div>
 
+
+
+
+
 <div class="products-grid">
     <?php foreach ($products as $p): ?>
         <?php
