@@ -8,6 +8,7 @@ $this->extend('default');
 $productsUrl = $this->Url->build(['controller' => 'Products', 'action' => 'dashboard']);
 $usersUrl    = $this->Url->build(['controller' => 'Users',    'action' => 'index']);
 $contactsUrl = $this->Url->build(['controller' => 'ContactUs','action' => 'index']);
+$ordersUrl   = $this->Url->build(['controller' => 'Orders','action' => 'index']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,6 +39,10 @@ $contactsUrl = $this->Url->build(['controller' => 'ContactUs','action' => 'index
             <li>
                 <a class="nav-link<?= $this->fetch('active') === 'contacts' ? ' active' : '' ?>"
                    href="<?= $contactsUrl ?>">📩 Enquiries</a>
+            </li>
+            <li>
+                <a class="nav-link<?= $this->fetch('active') === 'orders' ? ' active' : '' ?>"
+                   href="<?= $ordersUrl ?>">📩 Orders</a>
             </li>
         </ul>
     </aside>

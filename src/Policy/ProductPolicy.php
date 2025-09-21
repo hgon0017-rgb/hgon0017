@@ -20,7 +20,7 @@ class ProductPolicy
      */
     public function canAdd(IdentityInterface $user, Product $product)
     {
-        return $user->role == 'admin';
+        return $user->get('role') === 'admin';
 
     }
 
@@ -33,7 +33,7 @@ class ProductPolicy
      */
     public function canEdit(IdentityInterface $user, Product $product)
     {
-        return $user->role == 'admin';
+        return $user->get('role') === 'admin';
 
     }
 
@@ -46,7 +46,7 @@ class ProductPolicy
      */
     public function canDelete(IdentityInterface $user, Product $product)
     {
-        return $user->role == 'admin';
+        return $user->get('role') === 'admin';
 
     }
 
